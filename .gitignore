@@ -111,3 +111,9 @@ Temporary Items
 .apdisk
 Library/shadercompiler-UnityShaderCompiler.exe0.log
 Library/assetDatabase3
+
+#~~Custom~~
+
+#Model Importer
+Assets/GLTFUtility/
+GLTFUtility.meta
