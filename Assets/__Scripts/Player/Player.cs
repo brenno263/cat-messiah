@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using __Scripts.Level;
 using UnityEngine;
 
 namespace __Scripts.Player
@@ -9,27 +12,33 @@ namespace __Scripts.Player
         [Header("Set in Inspector")]
         public float acceleration;
         public float topSpeed;
-        public GameObject WeapAnchor;
+        public GameObject weapAnchor;
 
 
         [Header("Set Dynamically")]
-        private Rigidbody2D rigid;
-        private HashSet<Weapon> weapons;
+        private HashSet<Weapon> _weapons;
         public Vector3 moveInput;
         public Vector3 fireInput;
-        public static Player singleton;
+        
 
+        [Header("Fetched on Init")]
+        public static Player singleton;
+        private Rigidbody2D _rigid;
+        private FollowCam _followCam;
+        
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             if (singleton == null) singleton = this;
 
-            rigid = GetComponent<Rigidbody2D>();
-            weapons = new HashSet<Weapon>(GetComponentsInChildren<Weapon>());
+            _rigid = GetComponent<Rigidbody2D>();
+            if (Camera.main != null) _followCam = Camera.main.GetComponent<FollowCam>();
+
+            _weapons = new HashSet<Weapon>(GetComponentsInChildren<Weapon>());
         }
 
         // Update is called once per frame
-        void FixedUpdate()
+        private void FixedUpdate()
         {
             moveInput.x = Input.GetAxis("MoveX");
             moveInput.y = Input.GetAxis("MoveY");
@@ -37,11 +46,22 @@ namespace __Scripts.Player
             fireInput.y = Input.GetAxis("FireY");
             Move();
             Aim();
-            foreach(Weapon weap in weapons)
+            foreach (Weapon weap in _weapons.Where(weap => fireInput.magnitude > 0))
             {
-                if(fireInput.magnitude > 0)
+                weap.fire();
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("CameraZone"))
+            {
+                var cZone = other.GetComponent<CameraZone>();
+                if (cZone != null)
                 {
-                    weap.fire();
+                    _followCam.xBounds = cZone.xBounds;
+                    _followCam.yBounds = cZone.yBounds;
+                    _followCam.SetCameraSize(cZone.cameraSize);
                 }
             }
         }
@@ -53,16 +73,16 @@ namespace __Scripts.Player
             //{
             //    print(name);
             //}
-            Vector2 vel = rigid.velocity;
+            Vector2 vel = _rigid.velocity;
             Vector2 input = new Vector2(Input.GetAxis("MoveX"), Input.GetAxis("MoveY"));
             vel = Vector2.Lerp(vel, input * topSpeed, acceleration);
-            rigid.velocity = vel;
+            _rigid.velocity = vel;
         }
 
         void Aim()
         {
             Vector3 YDir = new Vector3(-Input.GetAxis("FireY"), Input.GetAxis("FireX"), 0);
-            WeapAnchor.transform.localRotation = Quaternion.LookRotation(Vector3.forward, YDir);
+            weapAnchor.transform.localRotation = Quaternion.LookRotation(Vector3.forward, YDir);
         }
     }
 }
