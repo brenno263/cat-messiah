@@ -1,38 +1,40 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+namespace __Scripts
 {
-    #region variables
-    [Header("Set in Inspector")]
-    public float maxHealth;
-
-    //[Header("Set Dynamically")]
-    private float _health;
-    public float health
+    public class Enemy : MonoBehaviour
     {
-        get { return _health; }
-        set
+        #region variables
+        [Header("Set in Inspector")]
+        public float maxHealth;
+
+        //[Header("Set Dynamically")]
+        private float _health;
+        public float health
         {
-            _health = Mathf.Min(maxHealth, value);
-            if (_health <= 0) Destroy(gameObject);
+            get { return _health; }
+            set
+            {
+                _health = Mathf.Min(maxHealth, value);
+                if (_health <= 0) Destroy(gameObject);
+            }
         }
-    }
-	//[header("Fetched on Init")]
-	#endregion
+        //[header("Fetched on Init")]
+        #endregion
 
-	#region monobehavior methods
-    void Start()
-    {
-        health = maxHealth;
-    }
-    #endregion
+        #region monobehavior methods
+        void Start()
+        {
+            health = maxHealth;
+        }
+        #endregion
 
-    #region private methods
-    public void Damage(float amt)
-    {
-        health -= amt;
+        #region private methods
+        public void Damage(float amt)
+        {
+            health -= amt;
+        }
+        #endregion
     }
-    #endregion
 }

@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Room
+  - LoadingSafeZone
+  - LoadingZone
   layers:
   - Default
   - TransparentFX
@@ -19,7 +22,7 @@ TagManager:
   - Enemy
   - EnemyProjectile
   - Background
-  - 
+  - LoadingZone
   - 
   - 
   - 
