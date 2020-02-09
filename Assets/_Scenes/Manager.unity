@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2ad99429f674e942a823e2663596f89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingScene: LoadingZoneTestB
+  startingScene: Caverns_0(1,1)
 --- !u!4 &1371498520
 Transform:
   m_ObjectHideFlags: 0
