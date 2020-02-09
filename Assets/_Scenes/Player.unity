@@ -196,12 +196,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f81ea4021ffe3a449e246915157262f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camera: {fileID: 0}
   playerTrans: {fileID: 1624785273}
-  acceleration: 1.4
-  constrainX: 1
+  acceleration: 2.2
+  maxSpeed: 16
+  zoomAcceleration: 1
   xBounds: {x: -200, y: 200}
-  constrainY: 0
   yBounds: {x: -200, y: 200}
+  targetCameraSize: 10
 --- !u!81 &988578847
 AudioListener:
   m_ObjectHideFlags: 0
@@ -332,7 +334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceleration: 0.6
   topSpeed: 6
-  WeapAnchor: {fileID: 1277636178}
+  weapAnchor: {fileID: 1277636178}
   moveInput: {x: 0, y: 0, z: 0}
   fireInput: {x: 0, y: 0, z: 0}
 --- !u!58 &1624785270

@@ -8,6 +8,7 @@ TagManager:
   - Room
   - LoadingSafeZone
   - LoadingZone
+  - CameraZone
   layers:
   - Default
   - TransparentFX

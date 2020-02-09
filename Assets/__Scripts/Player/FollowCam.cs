@@ -1,67 +1,92 @@
-﻿using UnityEngine;
+﻿using __Scripts.Level;
+using __Scripts.Loading;
+using UnityEngine;
 
 namespace __Scripts.Player
 {
     public class FollowCam : MonoBehaviour
     {
         #region variables
+
         [Header("Set in Inspector")]
+        public new Camera camera; //new keyword is cause there's some obsolete engine code that needs to be suppressed
+
         public Transform playerTrans;
         public float acceleration;
-        public bool constrainX;
-        public Vector2 xBounds;
-        public bool constrainY;
-        public Vector2 yBounds;
-        //[header("Set Dynamically")]
-        //[header("Fetched on Init")]
+        public float maxSpeed;
+        public float zoomAcceleration;
+
+        [Header("Set Dynamically")] 
+        private CameraZone _cameraZone;
+        private bool _cameraZoneIsSet;
+
+        private float _cameraZoomVelocity;
+        private Vector3 _cameraVelocity;
+
         #endregion
 
         #region monobehavior methods
-        void Start()
+
+        private void Start()
         {
             if (playerTrans == null) playerTrans = Player.singleton.transform;
+            camera = GetComponent<Camera>();
         }
 
-        void FixedUpdate()
+        private void FixedUpdate()
         {
+            var fdt = Time.fixedDeltaTime;
+
             Vector3 pos = transform.position;
 
-            Vector2 targetPos = playerTrans.position;
-        
-            if(constrainX)
+            Vector3 targetPos = playerTrans.position;
+
+            if (_cameraZoneIsSet)
             {
-                targetPos.x = Mathf.Clamp(targetPos.x, xBounds.x, xBounds.y);
-            }
-            if (constrainY)
-            {
-                targetPos.y = Mathf.Clamp(targetPos.y, yBounds.x, yBounds.y);
+                targetPos.x = Mathf.Clamp(targetPos.x, _cameraZone.xBounds.x, _cameraZone.xBounds.y);
+                targetPos.y = Mathf.Clamp(targetPos.y, _cameraZone.yBounds.x, _cameraZone.yBounds.y);
             }
 
-            pos = Vector2.Lerp(pos, targetPos, acceleration * Time.fixedDeltaTime);
-            pos.z = transform.position.z;
+            targetPos.z = pos.z;
+
+            pos = Vector3.SmoothDamp(pos, targetPos, ref _cameraVelocity, 1 / acceleration, maxSpeed);
 
             transform.position = pos;
+
+            if (_cameraZoneIsSet)
+            {
+                camera.orthographicSize =
+                    Mathf.SmoothDamp(camera.orthographicSize, _cameraZone.cameraSize, ref _cameraZoomVelocity,
+                        1 / zoomAcceleration);
+            }
         }
+
 
         private void OnDrawGizmos()
         {
-            if (constrainX)
+            if (_cameraZone == null) return;
+            Utils.Utils.GizmosDrawRect2D(
+                _cameraZone.yBounds.y, 
+                _cameraZone.xBounds.y, 
+                _cameraZone.yBounds.x, 
+                _cameraZone.xBounds.x);
+        }
+
+        #endregion
+        
+        #region public methods
+
+        public void SetCameraZone(CameraZone cZone)
+        {
+            _cameraZone = cZone;
+            _cameraZoneIsSet = true;
+
+            if (camera)
             {
-                Gizmos.DrawLine(new Vector3(xBounds.x, -100, 0), new Vector3(xBounds.x, 100, 0));
-                Gizmos.DrawLine(new Vector3(xBounds.y, -100, 0), new Vector3(xBounds.y, 100, 0));
-
-
-            }
-            if (constrainY)
-            {
-                Gizmos.DrawLine(new Vector3(-100, yBounds.x, 0), new Vector3(100, yBounds.x, 0));
-                Gizmos.DrawLine(new Vector3(-100, yBounds.y, 0), new Vector3(100, yBounds.y, 0));
-
+                cZone.aspect = camera.aspect;
             }
         }
-        #endregion
-
-        #region private methods
+        
         #endregion
     }
 }

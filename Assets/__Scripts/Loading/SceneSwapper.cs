@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace __Scripts.Loading
 {
+    public class ShiftHandler : UnityEvent<Vector2> { };
     public class SceneSwapper : MonoBehaviour
     {
         #region variables
@@ -18,6 +20,7 @@ namespace __Scripts.Loading
         private readonly HashSet<GameObject> _safeZoneGOs = new HashSet<GameObject>();
         private SceneRepresentative _currentSceneRep;
         private SceneRepresentative _oldSceneRep;
+        public ShiftHandler onShift = new ShiftHandler();
 
         [Header("Set on Init")]
         public static SceneSwapper singleton;
