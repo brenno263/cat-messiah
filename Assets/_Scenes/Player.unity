@@ -198,8 +198,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 0}
   playerTrans: {fileID: 1624785273}
-  acceleration: 1.4
-  zoomAcceleration: 0.8
+  acceleration: 2.2
+  maxSpeed: 16
+  zoomAcceleration: 1
   xBounds: {x: -200, y: 200}
   yBounds: {x: -200, y: 200}
   targetCameraSize: 10

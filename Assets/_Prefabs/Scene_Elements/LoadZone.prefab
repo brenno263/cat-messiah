@@ -49,7 +49,7 @@ MonoBehaviour:
   transitionOffset: {x: -36.26, y: 0}
   safeZone: {fileID: 1735275467847496750}
   sceneRepresentative: {fileID: 0}
-  active: 0
+  primed: 0
 --- !u!61 &441514012059840255
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -123,7 +123,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 14
 --- !u!114 &1735275467847496750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,4 +136,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027fb3f875782ea4e96416558132f3ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneRep: {fileID: 0}

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using __Scripts.Level;
+using __Scripts.Loading;
+using UnityEngine;
 
 namespace __Scripts.Player
 {
@@ -6,17 +8,20 @@ namespace __Scripts.Player
     {
         #region variables
 
-        [Header("Set in Inspector")] 
+        [Header("Set in Inspector")]
         public new Camera camera; //new keyword is cause there's some obsolete engine code that needs to be suppressed
+
         public Transform playerTrans;
         public float acceleration;
+        public float maxSpeed;
         public float zoomAcceleration;
 
-        [Header("Set Dynamically")] public Vector2 xBounds;
-        public Vector2 yBounds;
-        public float targetCameraSize;
+        [Header("Set Dynamically")] 
+        private CameraZone _cameraZone;
+        private bool _cameraZoneIsSet;
 
         private float _cameraZoomVelocity;
+        private Vector3 _cameraVelocity;
 
         #endregion
 
@@ -35,45 +40,53 @@ namespace __Scripts.Player
             Vector3 pos = transform.position;
 
             Vector3 targetPos = playerTrans.position;
-            
-            targetPos.x = Mathf.Clamp(targetPos.x, xBounds.x, xBounds.y);
-            targetPos.y = Mathf.Clamp(targetPos.y, yBounds.x, yBounds.y);
+
+            if (_cameraZoneIsSet)
+            {
+                targetPos.x = Mathf.Clamp(targetPos.x, _cameraZone.xBounds.x, _cameraZone.xBounds.y);
+                targetPos.y = Mathf.Clamp(targetPos.y, _cameraZone.yBounds.x, _cameraZone.yBounds.y);
+            }
+
             targetPos.z = pos.z;
 
-            pos = Vector3.Lerp(pos, targetPos, acceleration * Time.fixedDeltaTime);
+            pos = Vector3.SmoothDamp(pos, targetPos, ref _cameraVelocity, 1 / acceleration, maxSpeed);
 
             transform.position = pos;
 
-            var cameraSize = camera.orthographicSize;
-            camera.orthographicSize =
-                Mathf.SmoothDamp(cameraSize, targetCameraSize, ref _cameraZoomVelocity,
-                    1 / zoomAcceleration); //Mathf.Lerp(cameraSize, targetCameraSize, zoomAcceleration * fdt);
+            if (_cameraZoneIsSet)
+            {
+                camera.orthographicSize =
+                    Mathf.SmoothDamp(camera.orthographicSize, _cameraZone.cameraSize, ref _cameraZoomVelocity,
+                        1 / zoomAcceleration);
+            }
         }
-        
+
 
         private void OnDrawGizmos()
         {
-            Gizmos.DrawLine(new Vector3(xBounds.x, -100, 0), new Vector3(xBounds.x, 100, 0));
-            Gizmos.DrawLine(new Vector3(xBounds.y, -100, 0), new Vector3(xBounds.y, 100, 0));
-
-
-            Gizmos.DrawLine(new Vector3(-100, yBounds.x, 0), new Vector3(100, yBounds.x, 0));
-            Gizmos.DrawLine(new Vector3(-100, yBounds.y, 0), new Vector3(100, yBounds.y, 0));
+            if (_cameraZone == null) return;
+            Utils.Utils.GizmosDrawRect2D(
+                _cameraZone.yBounds.y, 
+                _cameraZone.xBounds.y, 
+                _cameraZone.yBounds.x, 
+                _cameraZone.xBounds.x);
         }
 
         #endregion
-
+        
         #region public methods
 
-        public void SetCameraSize(float size)
+        public void SetCameraZone(CameraZone cZone)
         {
-            targetCameraSize = size;
+            _cameraZone = cZone;
+            _cameraZoneIsSet = true;
+
+            if (camera)
+            {
+                cZone.aspect = camera.aspect;
+            }
         }
-
-        #endregion
-
-        #region private methods
-
+        
         #endregion
     }
 }

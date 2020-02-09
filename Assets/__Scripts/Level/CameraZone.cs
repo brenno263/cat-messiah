@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
+using __Scripts.Loading;
 using UnityEditor;
 using UnityEngine;
+using __Scripts.Utils;
+using TMPro.EditorUtilities;
+using UnityEngine.Events;
 
 namespace __Scripts.Level
 {
@@ -14,10 +19,16 @@ namespace __Scripts.Level
 		public Vector2 yBounds;
 		public float cameraSize;
 		public float aspect;
+		public Color color;
 
 		#endregion
 
 		#region monobehaviors
+
+		private void Start()
+		{
+			SceneSwapper.singleton.onShift.AddListener(UpdateBounds);
+		}
 
 		private void OnDrawGizmos()
 		{
@@ -31,22 +42,37 @@ namespace __Scripts.Level
 			var adjustedYBounds = new Vector2(yBounds.x, yBounds.y);
 			adjustedYBounds.x -= cameraSize;
 			adjustedYBounds.y += cameraSize;
-			
-			//top left
-			corners.Add(new Vector2(adjustedXBounds.x, adjustedYBounds.y));
-			//top right
-			corners.Add(new Vector2(adjustedXBounds.y, adjustedYBounds.y));
-			//bottom right
-			corners.Add(new Vector2(adjustedXBounds.y, adjustedYBounds.x));
-			//bottom left
-			corners.Add(new Vector2(adjustedXBounds.x, adjustedYBounds.x));
 
-			for (int i = 1; i <= 4; i++)
-			{
-				Gizmos.DrawLine(corners[i - 1], corners[i % 4]);
-			}
+			Color innerBoxColor = Color.Lerp(color, Color.white, 0.5f);
+			
+			Utils.Utils.GizmosDrawRect2D(
+				adjustedYBounds.y, 
+				adjustedXBounds.y, 
+				adjustedYBounds.x, 
+				adjustedXBounds.x,
+				color);
+			
+			Utils.Utils.GizmosDrawRect2D(
+				yBounds.y,
+				xBounds.y,
+				yBounds.x,
+				xBounds.x,
+				innerBoxColor
+			);
 		}
 
+		#endregion
+		
+		#region private methods
+		
+		private void UpdateBounds(Vector2 offset)
+		{
+			xBounds.x -= offset.x;
+			xBounds.y -= offset.x;
+			yBounds.x -= offset.y;
+			yBounds.y -= offset.y;
+		}
+		
 		#endregion
 	}
 }

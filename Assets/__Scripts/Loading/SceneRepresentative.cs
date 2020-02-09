@@ -88,6 +88,8 @@ namespace __Scripts.Loading
 				pos -= (Vector3)offset;
 				tform.position = pos;
 			}
+
+			SceneSwapper.singleton.onShift?.Invoke(offset);
 		}
 
 		/// <summary>

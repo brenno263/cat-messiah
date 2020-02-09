@@ -52,16 +52,14 @@ namespace __Scripts.Player
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerStay2D(Collider2D other)
         {
             if (other.CompareTag("CameraZone"))
             {
                 var cZone = other.GetComponent<CameraZone>();
                 if (cZone != null)
                 {
-                    _followCam.xBounds = cZone.xBounds;
-                    _followCam.yBounds = cZone.yBounds;
-                    _followCam.SetCameraSize(cZone.cameraSize);
+                    _followCam.SetCameraZone(cZone);
                 }
             }
         }
