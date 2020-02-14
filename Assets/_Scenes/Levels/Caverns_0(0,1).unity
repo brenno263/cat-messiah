@@ -1140,7 +1140,7 @@ PrefabInstance:
     - target: {fileID: 3593265122164722776, guid: fa2f2f0daa5b336449ed2099b904a79a,
         type: 3}
       propertyPath: xBounds.x
-      value: -7.19
+      value: -6.92
       objectReference: {fileID: 0}
     - target: {fileID: 3593265122164722776, guid: fa2f2f0daa5b336449ed2099b904a79a,
         type: 3}
@@ -1150,7 +1150,7 @@ PrefabInstance:
     - target: {fileID: 3593265122164722776, guid: fa2f2f0daa5b336449ed2099b904a79a,
         type: 3}
       propertyPath: xBounds.y
-      value: 7.39
+      value: 6.59
       objectReference: {fileID: 0}
     - target: {fileID: 3593265122164722776, guid: fa2f2f0daa5b336449ed2099b904a79a,
         type: 3}
