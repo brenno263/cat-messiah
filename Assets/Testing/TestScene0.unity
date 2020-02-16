@@ -496,9 +496,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceleration: 0.6
   topSpeed: 6
-  WeapAnchor: {fileID: 903596911}
-  MoveInput: {x: 0, y: 0, z: 0}
-  FireInput: {x: 0, y: 0, z: 0}
+  weapAnchor: {fileID: 903596911}
+  moveInput: {x: 0, y: 0, z: 0}
+  fireInput: {x: 0, y: 0, z: 0}
 --- !u!58 &474709036
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -794,12 +794,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f81ea4021ffe3a449e246915157262f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camera: {fileID: 0}
   playerTrans: {fileID: 474709039}
   acceleration: 5
-  constrainX: 1
-  xBounds: {x: -0.7, y: 0.7}
-  constrainY: 1
-  yBounds: {x: -0.5, y: 0.5}
+  maxSpeed: 10
+  zoomAcceleration: 10
 --- !u!1001 &549370959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2313,7 +2312,7 @@ GameObject:
   - component: {fileID: 2017836397}
   - component: {fileID: 2017836400}
   - component: {fileID: 2017836399}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: Room-Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
