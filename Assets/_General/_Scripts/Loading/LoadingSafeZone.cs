@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace __Scripts.Loading
+namespace _General._Scripts.Loading
 {
 	public class LoadingSafeZone : MonoBehaviour
 	{

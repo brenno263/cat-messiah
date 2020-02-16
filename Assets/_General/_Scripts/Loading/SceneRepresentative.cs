@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace __Scripts.Loading
+namespace _General._Scripts.Loading
 {
 	public class SceneRepresentative : MonoBehaviour
 	{

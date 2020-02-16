@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-namespace __Scripts.Loading
+namespace _General._Scripts.Loading
 {
     public class ShiftHandler : UnityEvent<Vector2> { };
     public class SceneSwapper : MonoBehaviour

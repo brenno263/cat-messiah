@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace __Scripts.Loading
+namespace _General._Scripts.Loading
 {
     public class DestructionZone : MonoBehaviour
     {

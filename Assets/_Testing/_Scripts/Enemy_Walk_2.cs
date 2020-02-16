@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using _General._Scripts.Player;
+using UnityEngine;
 
-namespace Testing.Scripts
+namespace _Testing._Scripts
 {
     public class Enemy_Walk_2 : MonoBehaviour
     {
@@ -32,7 +33,7 @@ namespace Testing.Scripts
 
                 if (isGrounded)
                 {
-                    rigid.AddForce((__Scripts.Player.Player.singleton.transform.position - this.transform.position + Vector3.up * verticalCorrection) * jumpForce);
+                    rigid.AddForce((Player.singleton.transform.position - this.transform.position + Vector3.up * verticalCorrection) * jumpForce);
                 }
             }
         }

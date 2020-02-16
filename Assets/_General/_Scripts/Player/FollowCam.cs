@@ -1,8 +1,7 @@
-﻿using __Scripts.Level;
-using __Scripts.Loading;
+﻿using _General._Scripts.Level;
 using UnityEngine;
 
-namespace __Scripts.Player
+namespace _General._Scripts.Player
 {
     public class FollowCam : MonoBehaviour
     {

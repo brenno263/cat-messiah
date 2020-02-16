@@ -1,7 +1,7 @@
-﻿using __Scripts;
+﻿using _General._Scripts;
 using UnityEngine;
 
-namespace Testing.Scripts
+namespace _Testing._Scripts
 {
     public class Enemy_Anim_1 : MonoBehaviour
     {

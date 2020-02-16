@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-namespace __Scripts
+namespace _General._Scripts
 {
 	public class Enemy : MonoBehaviour
 	{

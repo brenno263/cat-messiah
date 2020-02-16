@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace __Scripts
+namespace _General._Scripts
 {
     public class Projectile : MonoBehaviour
     {

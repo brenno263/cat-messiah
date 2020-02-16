@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace __Scripts.Player
+namespace _General._Scripts.Player
 {
 	public class Weapon : MonoBehaviour
 	{

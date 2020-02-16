@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Testing.Scripts
+namespace _Testing._Scripts
 {
     public class IsGrounded : MonoBehaviour
     {

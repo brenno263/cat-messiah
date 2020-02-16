@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Tracing;
-using __Scripts.Loading;
-using UnityEditor;
+﻿using System.Collections.Generic;
+using _General._Scripts.Loading;
 using UnityEngine;
-using __Scripts.Utils;
-using TMPro.EditorUtilities;
-using UnityEngine.Events;
 
-namespace __Scripts.Level
+namespace _General._Scripts.Level
 {
 	public class CameraZone : MonoBehaviour
 	{

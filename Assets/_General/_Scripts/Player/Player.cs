@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using __Scripts.Level;
+using _General._Scripts.Level;
 using UnityEngine;
 
-namespace __Scripts.Player
+namespace _General._Scripts.Player
 {
     public class Player : MonoBehaviour
     {

@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace __Scripts.Utils
+namespace _General._Scripts.Utils
 {
 
     public static class Utils
