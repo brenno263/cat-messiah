@@ -11,11 +11,18 @@ public class Player : MonoBehaviour
 
 
     [Header("Set Dynamically")]
+    public static Player singleton;
     private Rigidbody2D rigid;
 
     // Start is called before the first frame update
     void Start()
     {
+<<<<<<< Updated upstream
+=======
+        singleton = this;
+        MoveInput = new Vector3();
+
+>>>>>>> Stashed changes
         rigid = GetComponent<Rigidbody2D>();
     }
 
