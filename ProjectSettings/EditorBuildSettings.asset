@@ -6,36 +6,36 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Scenes/Manager.unity
+    path: Assets/_General/Scenes/Manager.unity
     guid: 45a38cbb6b494b44cb0edcb36a934bc3
   - enabled: 1
-    path: Assets/Testing/Scenes/LoadingZoneTestA.unity
+    path: Assets/_Testing/Scenes/LoadingZoneTestA.unity
     guid: 8aece2cd06ca09a4289aad3f44ebbc74
   - enabled: 1
-    path: Assets/Testing/TestScene0.unity
+    path: Assets/_Testing/Scenes/TestScene0.unity
     guid: ea74664a84770aa4c83d7c45953634cb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Testing/Scenes/TestScene1.unity
     guid: c47ad36db2a34874a88387c8fbcae99b
   - enabled: 1
-    path: Assets/_Scenes/Player.unity
+    path: Assets/_General/Scenes/Player.unity
     guid: d8d59ba00caf51649a16e98dcc731cab
   - enabled: 1
-    path: Assets/Testing/Scenes/LoadingZoneTestB.unity
+    path: Assets/_Testing/Scenes/LoadingZoneTestB.unity
     guid: 0076a9c9bf79a64449706f89a4f8b3b2
   - enabled: 1
-    path: Assets/_Scenes/Levels/Caverns_0(0,1).unity
+    path: Assets/_Testing/Scenes/Caverns/Caverns_0(0,1).unity
     guid: 1e90fa9f47df24440a313b764f674a02
   - enabled: 1
-    path: Assets/_Scenes/Levels/Caverns_0(1,0).unity
+    path: Assets/_Testing/Scenes/Caverns/Caverns_0(1,0).unity
     guid: bb148004c7bf5c74fb63f8c87a23937f
   - enabled: 1
-    path: Assets/_Scenes/Levels/Caverns_0(1,1).unity
+    path: Assets/_Testing/Scenes/Caverns/Caverns_0(1,1).unity
     guid: 4897f0eddd69de44b8445f46980e4bba
   - enabled: 1
-    path: Assets/_Scenes/Levels/Caverns_0(1,2).unity
+    path: Assets/_Testing/Scenes/Caverns/Caverns_0(1,2).unity
     guid: 18ad7eca6dffa424a9d823e2c0e8ddfa
   - enabled: 1
-    path: Assets/_Scenes/Levels/Caverns_0(0,2).unity
+    path: Assets/_Testing/Scenes/Caverns/Caverns_0(0,2).unity
     guid: c1abaec7699a6cc4b93d5da85c3200bb
   m_configObjects: {}
