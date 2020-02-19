@@ -14,9 +14,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Testing/Scenes/TestScene0.unity
     guid: ea74664a84770aa4c83d7c45953634cb
-  - enabled: 0
-    path: Assets/Testing/Scenes/TestScene1.unity
-    guid: c47ad36db2a34874a88387c8fbcae99b
   - enabled: 1
     path: Assets/_General/Scenes/Player.unity
     guid: d8d59ba00caf51649a16e98dcc731cab
@@ -38,4 +35,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Testing/Scenes/Caverns/Caverns_0(0,2).unity
     guid: c1abaec7699a6cc4b93d5da85c3200bb
+  - enabled: 1
+    path: Assets/_Testing/Scenes/TilemapTestScene.unity
+    guid: 750a0031342d74449bd2b4955401ac9f
   m_configObjects: {}
