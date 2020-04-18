@@ -18,6 +18,8 @@ namespace _General._Scripts
 
 		public Rigidbody2D rigid;
 
+		public Animator anim;
+
 		[Header("Set Dynamically")]
 		public bool facingRight = true;
 
@@ -33,6 +35,7 @@ namespace _General._Scripts
 
 		void Start()
 		{
+			anim = GetComponent<Animator>();
 		}
 
 		void FixedUpdate() 
@@ -91,16 +94,22 @@ namespace _General._Scripts
 			{
 				playerState = WalkingRight;
 				vel.x = speed;
+				anim.SetBool("run", true);
+				transform.localScale = new Vector2(3, this.transform.localScale.y);
+
 			}
 			else if (horizontalInput < -0.1)
 			{
 				playerState = WalkingLeft;
 				vel.x = -speed;
+				anim.SetBool("run", true);
+				transform.localScale = new Vector2(-3, this.transform.localScale.y);
 			}
 			else
 			{
 				playerState = Idling;
 				vel.x = 0;
+				anim.SetBool("run", false);
 			}
 
 			rigid.velocity = vel;
