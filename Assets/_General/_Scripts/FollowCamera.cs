@@ -7,8 +7,6 @@ namespace _General._Scripts
 		#region variables
 
 		[Header("Set in Inspector")]
-		public Transform focus;
-
 		public Player player;
 
 		public float zCoordinate;
@@ -16,6 +14,8 @@ namespace _General._Scripts
 		public float maxSpeed;
 
 		public float smoothTime;
+
+		public float lookAhead;
 		//[Header("Set Dynamically")]
 		//[Header("Fetched on Init")]
 
@@ -27,18 +27,22 @@ namespace _General._Scripts
 
 		void Start()
 		{
-			transform.position = focus.position;
+			transform.position = player.transform.position;
 		}
 
 		void Update()
 		{
+			Vector2 targetPos = player.transform.position;
+			targetPos.x += lookAhead * player.playerState.direction();
+
 			Vector3 pos = Vector2.SmoothDamp(
 				transform.position,
-				focus.position,
+				targetPos,
 				ref _currentVelocity,
 				smoothTime,
 				maxSpeed,
-				Time.deltaTime);
+				Time.deltaTime
+				);
 
 			pos.z = zCoordinate;
 
