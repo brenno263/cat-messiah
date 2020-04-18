@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace _General._Scripts
 {
 	using static PlayerState;
+	using static InteractionType;
 
 	public class Player : MonoBehaviour
 	{
@@ -15,6 +17,8 @@ namespace _General._Scripts
 
 		public float climbHeight;
 		public float climbSpeed;
+
+		public float interactionCooldownMax;
 
 		public Rigidbody2D rigid;
 
@@ -27,7 +31,20 @@ namespace _General._Scripts
 
 		public PlayerState playerState = Idling;
 
+
+		public Item currentItem = null;
+		public bool carryingItem = false;
+
+		public float interactionCooldown = 0;
+
+		public List<Interactable> interactables;
+
 		//[Header("Fetched on Init")]
+
+		public bool CanInteract
+		{
+			get => interactionCooldown < 0;
+		}
 
 		#endregion
 
@@ -38,48 +55,99 @@ namespace _General._Scripts
 			anim = GetComponent<Animator>();
 		}
 
-		void FixedUpdate() 
+		private void Update()
+		{
+			if (CanInteract)
+			{
+				if (ManageInteractions()) interactionCooldown = interactionCooldownMax;
+			}
+			else { interactionCooldown -= Time.deltaTime; }
+		}
+
+		void FixedUpdate()
 		{
 			Move();
 		}
 
-		private void OnTriggerStay2D(Collider2D other)
+		private void OnTriggerEnter2D(Collider2D other)
 		{
-			print(Input.GetAxis("Fire1"));
-			Interactable interactable;
-			if (Input.GetAxis("Fire1") > 0)
-			{
-				interactable = other.gameObject.GetComponent<Interactable>();
-				if (interactable != null)
-				{
-					Interact(interactable);
-				}
-			}
+			Interactable interactable = other.GetComponent<Interactable>();
+			if (interactable != null) { interactables.Add(interactable); }
+		}
+
+		private void OnTriggerExit2D(Collider2D other)
+		{
+			Interactable interactable = other.GetComponent<Interactable>();
+			if (interactable != null && interactables.Contains(interactable)) { interactables.Remove(interactable); }
 		}
 
 		#endregion
 
 		#region private methods
 
-		private void Interact(Interactable interactable)
+		private bool ManageInteractions()
 		{
-			interactable.onInteract?.Invoke();
-			
-			switch (interactable.type)
+			if (Input.GetAxis("Vertical") < -0.1 && carryingItem)
 			{
-				case InteractionType.Item:
-					break;
-				case InteractionType.StairsUp:
-					StartCoroutine(Climb(true));
-					break;
-				case InteractionType.StairsDown:
-					StartCoroutine(Climb(false));
-					break;
-				case InteractionType.Environment:
-					break;
-				default:
-					throw new ArgumentOutOfRangeException();
+				DropItem();
+				return true;
 			}
+
+			if (Input.GetAxis("Vertical") < -0.1 && !carryingItem)
+			{
+				foreach (Interactable interactable in interactables)
+				{
+					if (interactable.type == InteractionType.Item)
+					{
+						Item item = interactable.gameObject.GetComponent<Item>();
+						PickUp(item);
+						interactable.onInteract?.Invoke(this);
+						return true;
+					}
+				}
+			}
+
+			if (Input.GetAxis("Fire1") > 0)
+			{
+				foreach (Interactable interactable in interactables)
+				{
+					switch (interactable.type)
+					{
+						case StairsUp:
+							interactable.onInteract?.Invoke(this);
+							StartCoroutine(Climb(true));
+							return true;
+						case StairsDown:
+							interactable.onInteract?.Invoke(this);
+							StartCoroutine(Climb(false));
+							return true;
+						case Door:
+							interactable.onInteract?.Invoke(this);
+							//do door thing
+							return true;
+						case InteractionType.Item:
+							break;
+						default:
+							throw new ArgumentOutOfRangeException();
+					}
+				}
+			}
+
+			return false;
+		}
+
+		private void PickUp(Item item)
+		{
+			item.PickUp(this);
+			currentItem = item;
+			carryingItem = true;
+		}
+
+		private void DropItem()
+		{
+			currentItem.Drop();
+			currentItem = null;
+			carryingItem = false;
 		}
 
 		private void Move()
@@ -117,7 +185,9 @@ namespace _General._Scripts
 
 		private IEnumerator Climb(bool up)
 		{
+			if (climbing) yield break;
 			climbing = true;
+			playerState = up ? ClimbingUp : ClimbingDown;
 			rigid.simulated = false;
 			float startY = transform.position.y;
 			float y = 0;
@@ -132,9 +202,10 @@ namespace _General._Scripts
 			}
 
 			climbing = false;
+			//playerstate is reset in move() now that climbing is false
 			rigid.simulated = true;
 		}
-		
+
 		#endregion
 	}
 }
