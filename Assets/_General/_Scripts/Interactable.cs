@@ -3,35 +3,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum InteractionType
+namespace _General._Scripts
 {
-	Item, StairsUp, StairsDown, Environment
-}
+	public enum InteractionType
+	{
+		Item, StairsUp, StairsDown, Door
+	}
 
-public class Interactable : MonoBehaviour
-{
-	#region variables
+	public class Interactable : MonoBehaviour
+	{
+		#region variables
 
-	[Header("Set in Inspector")]
-	public InteractionType type;
+		[Header("Set in Inspector")]
+		public InteractionType type;
 
-	public Action onInteract;
-	//[Header("Set Dynamically")]
-	//[Header("Fetched on Init")]
-	#endregion
+		public Action<Player> onInteract;
+		//[Header("Set Dynamically")]
+		//[Header("Fetched on Init")]
+		#endregion
 
-	#region monobehavior methods
-    void Start()
-    {
+		#region monobehavior methods
+		void Start()
+		{
         
-    }
+		}
 
-    void Update()
-    {
+		void Update()
+		{
         
-    }
-    #endregion
+		}
+		#endregion
 
-    #region private methods
-    #endregion
+		#region private methods
+		#endregion
+	}
 }
