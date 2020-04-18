@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 
 namespace _General._Scripts
 {
@@ -11,6 +13,9 @@ namespace _General._Scripts
 		[Header("Set in Inspector")]
 		public float speed;
 
+		public float climbHeight;
+		public float climbSpeed;
+
 		public Rigidbody2D rigid;
 
 		[Header("Set Dynamically")]
@@ -18,7 +23,7 @@ namespace _General._Scripts
 
 		public bool climbing = false;
 
-		public PlayerState playerState;
+		public PlayerState playerState = Idling;
 
 		//[Header("Fetched on Init")]
 
@@ -33,6 +38,45 @@ namespace _General._Scripts
 		void FixedUpdate() 
 		{
 			Move();
+		}
+
+		private void OnTriggerStay2D(Collider2D other)
+		{
+			print(Input.GetAxis("Fire1"));
+			Interactable interactable;
+			if (Input.GetAxis("Fire1") > 0)
+			{
+				interactable = other.gameObject.GetComponent<Interactable>();
+				if (interactable != null)
+				{
+					Interact(interactable);
+				}
+			}
+		}
+
+		#endregion
+
+		#region private methods
+
+		private void Interact(Interactable interactable)
+		{
+			interactable.onInteract?.Invoke();
+			
+			switch (interactable.type)
+			{
+				case InteractionType.Item:
+					break;
+				case InteractionType.StairsUp:
+					StartCoroutine(Climb(true));
+					break;
+				case InteractionType.StairsDown:
+					StartCoroutine(Climb(false));
+					break;
+				case InteractionType.Environment:
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
 		}
 
 		private void Move()
@@ -62,10 +106,26 @@ namespace _General._Scripts
 			rigid.velocity = vel;
 		}
 
-		#endregion
+		private IEnumerator Climb(bool up)
+		{
+			climbing = true;
+			rigid.simulated = false;
+			float startY = transform.position.y;
+			float y = 0;
+			while (up && y < startY + climbHeight || !up && y > startY - climbHeight)
+			{
+				Transform trans = transform;
+				Vector2 pos = trans.position;
+				pos.y += climbSpeed * Time.deltaTime * (up ? 1 : -1);
+				trans.position = pos;
+				y = pos.y;
+				yield return null;
+			}
 
-		#region private methods
-
+			climbing = false;
+			rigid.simulated = true;
+		}
+		
 		#endregion
 	}
 }
