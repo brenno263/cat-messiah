@@ -20,7 +20,7 @@ namespace _General._Scripts
 
 		public Interactable interactable;
 
-		public float groundRotation;
+		public float dropSpinMax;
 
 		public Vector2 groundScale;
 
@@ -50,16 +50,18 @@ namespace _General._Scripts
 			carrying = true;
 		}
 
-		public void Drop()
+		public void Drop(Player.Player player)
 		{
 			if (!carrying) return;
 			Transform trans = transform;
 			trans.SetParent(null);
-			trans.rotation = Quaternion.AngleAxis(groundRotation, Vector3.forward);
 			trans.SetGlobalScale2D(groundScale);
-
+			
 			collider.enabled = true;
 			rigid.simulated = true;
+			rigid.velocity = player.rigid.velocity;
+			rigid.AddTorque((Random.value - 0.5f)  * dropSpinMax);
+			
 			carrying = false;
 		}
 

@@ -155,7 +155,7 @@ namespace _General._Scripts.Player
 
 		private void DropItem()
 		{
-			currentItem.Drop();
+			currentItem.Drop(this);
 			currentItem = null;
 			carryingItem = false;
 		}
@@ -174,13 +174,16 @@ namespace _General._Scripts.Player
 			{
 				PlayerState = WalkingRight;
 				vel.x = speed;
-				trans.localScale = new Vector2(Mathf.Abs(localScale.x), localScale.y);
+				trans.rotation = Quaternion.AngleAxis(0, Vector3.up);
+				//trans.localScale = new Vector2(Mathf.Abs(localScale.x), localScale.y);
 			}
 			else if (horizontalInput < -0.1)
 			{
 				PlayerState = WalkingLeft;
 				vel.x = -speed;
-				trans.localScale = new Vector2(-Mathf.Abs(localScale.x), localScale.y);
+				trans.rotation = Quaternion.AngleAxis(180, Vector3.up);
+
+				//trans.localScale = new Vector2(-Mathf.Abs(localScale.x), localScale.y);
 			}
 			else
 			{
