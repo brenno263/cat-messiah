@@ -62,7 +62,7 @@ namespace _General._Scripts.Player
 
 		#region monobehavior methods
 
-		void Start()
+		private void Start()
 		{
 		}
 
@@ -75,7 +75,7 @@ namespace _General._Scripts.Player
 			else { interactionCooldown -= Time.deltaTime; }
 		}
 
-		void FixedUpdate()
+		private void FixedUpdate()
 		{
 			Move();
 		}

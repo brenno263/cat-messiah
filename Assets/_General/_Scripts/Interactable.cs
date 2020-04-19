@@ -23,12 +23,13 @@ namespace _General._Scripts
 		#endregion
 
 		#region monobehavior methods
-		void Start()
+
+		private void Start()
 		{
         
 		}
 
-		void Update()
+		private void Update()
 		{
         
 		}
