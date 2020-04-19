@@ -30,6 +30,8 @@ namespace _General._Scripts.Building
 
         public int y;
 
+        public GameObject walls;
+        
         public SpriteRenderer background; //this is a temporary way to visualize fire
 
         [Header("Set Dynamically")]
