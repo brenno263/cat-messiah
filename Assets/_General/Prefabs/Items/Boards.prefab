@@ -131,7 +131,7 @@ MonoBehaviour:
   dropSpinMax: 100
   groundScale: {x: 1, y: 1}
   carryingRotation: 121
-  carryingPosition: {x: 0, y: 0.165}
+  carryingPosition: {x: 0, y: 0.8}
   carryingScale: {x: 1, y: 1}
   carrying: 0
 --- !u!70 &2836480121326400506
