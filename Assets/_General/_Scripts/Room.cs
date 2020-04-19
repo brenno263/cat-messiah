@@ -15,18 +15,24 @@ public enum RoomDirection
     {
         #region variables
 
-        [Header("Set in Inspector")]
+        [Header("Set in Inspector")] 
+        
+        public int x;
+
+        public int y;
+        
         public RoomDirection roomOrientation;
-
-        public int health;
-
-        public int damageMultiplier;
         
         public int fireCounterResetMax;
         
         public int fireCounterResetMin;
 
         [Header("Set Dynamically")] 
+        
+        public Door rightDoor;
+
+        public Door leftDoor;
+        
         public int fireLevel = 0;
 
         public int fireCounter;
@@ -35,27 +41,36 @@ public enum RoomDirection
 
         #endregion
         #region monobehavior methods
-
+        
         void Start()
         {
-            fireCounter = Random.Range(fireCounterResetMin, fireCounterResetMax);
+            fireCounter = Random.Range(fireCounterResetMin * 50, fireCounterResetMax * 50);
         }
         
         void FixedUpdate()
         {
             UpdateFire();
-            UpdateDamage();
         }
 
-        void Extinguish()
+        public void Extinguish()
         {
             fireLevel = Math.Max(fireLevel - 2, 0);
-            fireCounter = Random.Range(fireCounterResetMin, fireCounterResetMax);
+            fireCounter = Random.Range(fireCounterResetMin * 50, fireCounterResetMax * 50);
         }
 
-        bool isDestroyed()
+        public bool isDestroyed()
         {
-            return health <= 0;
+            return fireLevel >= 4;
+        }
+
+        public bool onFire()
+        {
+            return fireLevel > 0;
+        }
+
+        public void setRoomOnFire()
+        {
+            fireLevel = Math.Max(1, fireLevel);
         }
 
         #endregion
@@ -64,11 +79,11 @@ public enum RoomDirection
 
         void UpdateFire()
         {
-            if (fireLevel <= 3)
+            if (onFire() && !isDestroyed())
             {
-                if (fireCounter == 0)
+                if (fireCounter <= 0)
                 {
-                    fireCounter = Random.Range(fireCounterResetMin, fireCounterResetMax);
+                    fireCounter = Random.Range(fireCounterResetMin * 50, fireCounterResetMax * 50);
                     fireLevel++;
                 }
                 else
@@ -76,11 +91,6 @@ public enum RoomDirection
                     fireCounter--;
                 }
             }
-        }
-
-        void UpdateDamage()
-        {
-            health = Math.Max(health - (fireLevel * damageMultiplier), 0);
         }
 
         #endregion
