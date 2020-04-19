@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using _General._Scripts.Player;
+using UnityEngine;
 
 namespace _General._Scripts
 {
@@ -7,7 +8,7 @@ namespace _General._Scripts
 		#region variables
 
 		[Header("Set in Inspector")]
-		public Player player;
+		public Player.Player player;
 
 		public float zCoordinate;
 
@@ -33,7 +34,7 @@ namespace _General._Scripts
 		void Update()
 		{
 			Vector2 targetPos = player.transform.position;
-			targetPos.x += lookAhead * player.playerState.direction();
+			targetPos.x += lookAhead * player.PlayerState.Direction();
 
 			Vector3 pos = Vector2.SmoothDamp(
 				transform.position,
