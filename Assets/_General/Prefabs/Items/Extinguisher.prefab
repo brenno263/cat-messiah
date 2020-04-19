@@ -208,7 +208,7 @@ MonoBehaviour:
   collider: {fileID: 4470752418976718177}
   rigid: {fileID: 5120834690137302811}
   interactable: {fileID: 5120834690137302809}
-  groundRotation: 0
+  dropSpinMax: 150
   groundScale: {x: 1, y: 1}
   carryingRotation: 0
   carryingPosition: {x: 0, y: 0.33}
