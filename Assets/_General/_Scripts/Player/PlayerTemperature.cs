@@ -30,12 +30,12 @@ namespace _General._Scripts.Player
 
 		#region monobehavior methods
 
-		void Start()
+		private void Start()
 		{
 			spriteRenderer.color = hotColor;
 		}
 
-		void Update()
+		private void Update()
 		{
 			spriteRenderer.color = Color.Lerp(normalColor, hotColor, temperature / maxTemperature);
 

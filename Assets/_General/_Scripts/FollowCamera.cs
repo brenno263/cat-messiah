@@ -26,12 +26,12 @@ namespace _General._Scripts
 
 		#region monobehavior methods
 
-		void Start()
+		private void Start()
 		{
 			transform.position = player.transform.position;
 		}
 
-		void Update()
+		private void Update()
 		{
 			Vector2 targetPos = player.transform.position;
 			targetPos.x += lookAhead * player.PlayerState.Direction();

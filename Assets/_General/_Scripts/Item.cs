@@ -61,7 +61,7 @@ namespace _General._Scripts
 			rigid.simulated = true;
 			rigid.velocity = player.rigid.velocity;
 			rigid.AddTorque((Random.value - 0.5f)  * dropSpinMax);
-			
+
 			carrying = false;
 		}
 
