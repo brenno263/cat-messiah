@@ -206,6 +206,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5941943143563586981}
+  - component: {fileID: 1686173450796862588}
   m_Layer: 0
   m_Name: RoomLeft
   m_TagString: Untagged
@@ -229,3 +230,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1686173450796862588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8293782979544138161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89737886e431e68418e8f98f950cf612, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  x: 0
+  y: 0
+  roomOrientation: 0
+  health: 10000
+  damageMultiplier: 2
+  fireCounterResetMax: 60
+  fireCounterResetMin: 10
+  fireLevel: 0
+  fireCounter: 0
