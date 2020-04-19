@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3917735820130295616}
   - component: {fileID: 3917735820130295623}
   - component: {fileID: 3917735820130295622}
+  - component: {fileID: 9021086241170290796}
   - component: {fileID: 3917735820130295621}
   m_Layer: 8
   m_Name: Player
@@ -141,11 +142,31 @@ MonoBehaviour:
   anim: {fileID: 3917735820130295621}
   facingRight: 1
   climbing: 0
-  playerState: 0
   currentItem: {fileID: 0}
   carryingItem: 0
   interactionCooldown: 0
   interactables: []
+--- !u!114 &9021086241170290796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3917735820130295620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc8af2f7ccfa47b4299fc2c429ced204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxTemperature: 100
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  hotColor: {r: 1, g: 0, b: 0, a: 1}
+  spriteRenderer: {fileID: 3917735820130295617}
+  heatingRates:
+  - -5
+  - 5
+  - 11.62
+  temperature: 0
 --- !u!95 &3917735820130295621
 Animator:
   serializedVersion: 3
