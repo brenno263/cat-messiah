@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3843748254019277557}
   - component: {fileID: 3843748254019277559}
   - component: {fileID: 3843748254019277558}
-  m_Layer: 15
+  m_Layer: 16
   m_Name: ArmChair
   m_TagString: Untagged
   m_Icon: {fileID: 0}

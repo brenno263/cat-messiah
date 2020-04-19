@@ -18,7 +18,7 @@ namespace _General._Scripts.Editor
 
 		private GameObject buildingGO;
 
-		[MenuItem("Window/Building Generator")]
+		[MenuItem("Building Generator/Building Generator")]
 		public static void OpenWindow()
 		{
 			BuildingGeneratorWindow window = GetWindow<BuildingGeneratorWindow>("Building Generator");
@@ -42,7 +42,8 @@ namespace _General._Scripts.Editor
 				new Rect(3, 140, position.width - 6, 20),
 				"Building Gameobject",
 				buildingGO,
-				typeof(GameObject)
+				typeof(GameObject),
+				true
 			);
 
 			if (GUILayout.Button("Go!"))
