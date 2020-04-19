@@ -17,7 +17,7 @@ namespace _General._Scripts
 		[Header("Set in Inspector")]
 		public InteractionType type;
 
-		public Action<Player> onInteract;
+		public Action<Player.Player> onInteract;
 		//[Header("Set Dynamically")]
 		//[Header("Fetched on Init")]
 		#endregion

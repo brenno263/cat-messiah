@@ -14,7 +14,7 @@ namespace _General._Scripts
 		[Header("Set in Inspector")]
 		public Collider2D trigger;
 
-		public Collider2D collider;
+		public new Collider2D collider;
 
 		public Rigidbody2D rigid;
 
@@ -36,14 +36,15 @@ namespace _General._Scripts
 		//[Header("Fetched on Init")]
 		#endregion
 
-		public void PickUp(Player player)
+		public void PickUp(Player.Player player)
 		{
-			
+			if (carrying) return;
 			Transform trans = transform;
 			trans.SetParent(player.transform);
 			trans.localPosition = carryingPosition;
-			trans.SetGlobalScale2D(carryingScale);
 			trans.rotation = Quaternion.AngleAxis(carryingRotation, Vector3.forward);
+			trans.SetGlobalScale2D(carryingScale);
+			
 			collider.enabled = false;
 			rigid.simulated = false;
 			carrying = true;
@@ -51,6 +52,7 @@ namespace _General._Scripts
 
 		public void Drop()
 		{
+			if (!carrying) return;
 			Transform trans = transform;
 			trans.SetParent(null);
 			trans.rotation = Quaternion.AngleAxis(groundRotation, Vector3.forward);
@@ -62,15 +64,7 @@ namespace _General._Scripts
 		}
 
 		#region monobehavior methods
-		void Start()
-		{
-        
-		}
 
-		void Update()
-		{
-			print(Mathf.Sign(transform.lossyScale.x));
-		}
 		#endregion
 
 		#region private methods
