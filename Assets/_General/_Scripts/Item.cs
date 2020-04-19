@@ -42,8 +42,8 @@ namespace _General._Scripts
 			Transform trans = transform;
 			trans.SetParent(player.transform);
 			trans.localPosition = carryingPosition;
+			trans.SetGlobalScale2D(carryingScale);
 			trans.rotation = Quaternion.AngleAxis(carryingRotation, Vector3.forward);
-			trans.SetGlobalScale(carryingScale);
 			collider.enabled = false;
 			rigid.simulated = false;
 			carrying = true;
@@ -54,7 +54,8 @@ namespace _General._Scripts
 			Transform trans = transform;
 			trans.SetParent(null);
 			trans.rotation = Quaternion.AngleAxis(groundRotation, Vector3.forward);
-			trans.SetGlobalScale(groundScale);
+			trans.SetGlobalScale2D(groundScale);
+
 			collider.enabled = true;
 			rigid.simulated = true;
 			carrying = false;
@@ -68,7 +69,7 @@ namespace _General._Scripts
 
 		void Update()
 		{
-        
+			print(Mathf.Sign(transform.lossyScale.x));
 		}
 		#endregion
 
@@ -78,11 +79,11 @@ namespace _General._Scripts
 
 	public static class TransformExtensions
 	{
-		public static void SetGlobalScale(this Transform transform, Vector3 newScale)
+		public static void SetGlobalScale2D(this Transform transform, Vector2 newScale)
 		{
 			transform.localScale = Vector3.one;
 			Vector3 lossyScale = transform.lossyScale;
-			transform.localScale = new Vector3(newScale.x/lossyScale.x, newScale.y/lossyScale.y, newScale.z/lossyScale.z);
+			transform.localScale = new Vector3(newScale.x/lossyScale.x, newScale.y/lossyScale.y, 1);
 		}
 	}
 }

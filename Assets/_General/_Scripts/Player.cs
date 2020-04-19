@@ -52,7 +52,6 @@ namespace _General._Scripts
 
 		void Start()
 		{
-			anim = GetComponent<Animator>();
 		}
 
 		private void Update()
