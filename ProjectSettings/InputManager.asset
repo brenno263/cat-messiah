@@ -157,10 +157,10 @@ InputManager:
     positiveButton: d
     altNegativeButton: 
     altPositiveButton: 
-    gravity: 300
-    dead: 0.19
-    sensitivity: 1
-    snap: 0
+    gravity: 1000
+    dead: 0.01
+    sensitivity: 1000
+    snap: 1
     invert: 0
     type: 0
     axis: 0
@@ -169,16 +169,16 @@ InputManager:
     m_Name: Vertical
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
+    negativeButton: s
+    positiveButton: w
     altNegativeButton: 
     altPositiveButton: 
-    gravity: 0
-    dead: 0.19
-    sensitivity: 1
-    snap: 0
-    invert: 1
-    type: 2
+    gravity: 1000
+    dead: 0.01
+    sensitivity: 1000
+    snap: 1
+    invert: 0
+    type: 0
     axis: 1
     joyNum: 0
   - serializedVersion: 3
