@@ -32,6 +32,8 @@ namespace _General._Scripts.Building
 
         public SpriteRenderer background; //this is a temporary way to visualize fire
 
+        public FireParticleSystem fireParticleSystem;
+
         [Header("Set Dynamically")]
         public float fireCounter;
 
@@ -45,6 +47,7 @@ namespace _General._Scripts.Building
             {
                 if (value >= 4) gameObject.SetActive(false);
                 _fireLevel = value;
+                fireParticleSystem.FireLevel = _fireLevel;
             }
         }
 
