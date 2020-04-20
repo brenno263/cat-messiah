@@ -75,4 +75,4 @@ MonoBehaviour:
     type: 3}
   doorPrefab: {fileID: 386894783171970880, guid: c0f3557d9212e904f899142d9c28d5bc,
     type: 3}
-  doorOffset: {x: -0.72, y: -3.78}
+  doorOffset: {x: -3.2, y: -1.05}
