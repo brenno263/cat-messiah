@@ -59,8 +59,10 @@ namespace _General._Scripts.Building
 					
 					roomGOs[x, y] = roomGO;
 					rooms[x, y] = room;
+
+					roomGO.name = "Room(" + x + "," + y + ")";
 					
-					roomTForm.position = new Vector3(x * roomSize.x, y * roomSize.y, 0);
+					roomTForm.localPosition = new Vector3(x * roomSize.x, y * roomSize.y, 0);
 					
 					room.x = x;
 					room.y = y;
@@ -92,6 +94,7 @@ namespace _General._Scripts.Building
 
 					room.rightDoor = door;
 					nextRoom.leftDoor = door;
+					door.IsOpen = true;
 				}
 			}
 
@@ -100,7 +103,7 @@ namespace _General._Scripts.Building
 			Vector3 entryDoorPos = entry.transform.position;
 			entryDoorPos.x += doorOffset.x;
 			entryDoorPos.y += doorOffset.y;
-			entryDoorGO.transform.position = entryDoorPos;
+			entryDoorGO.transform.localPosition = entryDoorPos;
 			
 			Door entryDoor = entryDoorGO.GetComponent<Door>();
 			entry.leftDoor = entryDoor;

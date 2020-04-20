@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _General._Scripts.Building;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace _General._Scripts.Player
 {
@@ -24,6 +25,8 @@ namespace _General._Scripts.Player
 		public Rigidbody2D rigid;
 
 		public Animator anim;
+
+		public RoomTracker roomTracker;
 
 		[Header("Set Dynamically")]
 		public bool facingRight = true;
@@ -63,8 +66,10 @@ namespace _General._Scripts.Player
 
 		#region monobehavior methods
 
-		private void Start()
+		private void Awake()
 		{
+			//QualitySettings.vSyncCount = 0;
+			Application.targetFrameRate = 50;
 		}
 
 		private void Update()
@@ -120,6 +125,13 @@ namespace _General._Scripts.Player
 
 			if (Input.GetAxis("Fire1") > 0)
 			{
+				if (carryingItem && currentItem.type == ItemType.Extinguisher && roomTracker.inRoom &&
+				    roomTracker.currentRoom.FireLevel > 0)
+				{
+					roomTracker.currentRoom.Extinguish();
+					currentItem.UseUp(this);
+					return true;
+				}
 				foreach (Interactable interactable in interactables)
 				{
 					switch (interactable.type)
@@ -187,16 +199,17 @@ namespace _General._Scripts.Player
 			{
 				PlayerState = WalkingRight;
 				vel.x = speed;
-				trans.rotation = Quaternion.AngleAxis(0, Vector3.up);
-				//trans.localScale = new Vector2(Mathf.Abs(localScale.x), localScale.y);
+				//performs better with items, but makes the player judder
+				//trans.rotation = Quaternion.AngleAxis(0, Vector3.up);
+				trans.localScale = new Vector2(Mathf.Abs(localScale.x), localScale.y);
 			}
 			else if (horizontalInput < -0.1)
 			{
 				PlayerState = WalkingLeft;
 				vel.x = -speed;
-				trans.rotation = Quaternion.AngleAxis(180, Vector3.up);
+				//trans.rotation = Quaternion.AngleAxis(180, Vector3.up); 
 
-				//trans.localScale = new Vector2(-Mathf.Abs(localScale.x), localScale.y);
+				trans.localScale = new Vector2(-Mathf.Abs(localScale.x), localScale.y);
 			}
 			else
 			{
@@ -205,6 +218,13 @@ namespace _General._Scripts.Player
 			}
 
 			rigid.velocity = vel;
+		}
+
+		public void Burn()
+		{
+			//burn to death
+			print("Player burned to death, oh no!");
+			SceneManager.LoadScene("DeathScreen");
 		}
 
 		private IEnumerator Climb(bool up)

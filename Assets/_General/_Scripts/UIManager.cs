@@ -7,7 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public void Level1()
     {
-        SceneManager.LoadScene("Ani-Test");
+        SceneManager.LoadScene("FireDetectionTesting");
     }
 
     public void Level2()
