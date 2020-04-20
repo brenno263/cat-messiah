@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using _General._Scripts.Building;
+using _General._Scripts.Sound;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +10,7 @@ namespace _General._Scripts.Player
 {
 	using static PlayerState;
 	using static InteractionType;
+	using static SoundFx;
 
 	public class Player : MonoBehaviour
 	{
@@ -29,6 +31,8 @@ namespace _General._Scripts.Player
 		public Animator anim;
 
 		public RoomTracker roomTracker;
+
+		public PlayerAudioManager audioMananager;
 
 		[Header("Set Dynamically")]
 		public bool facingRight = true;
@@ -53,6 +57,7 @@ namespace _General._Scripts.Player
 			{
 				_playerState = value;
 				anim.SetInteger(AnimatorPlayerState, (int) value);
+				audioMananager.WalkLoopPlaying = (int) value > 1;
 			}
 		}
 
@@ -107,13 +112,13 @@ namespace _General._Scripts.Player
 		
 		private bool ManageInteractions()
 		{
-			if (Input.GetAxis("Vertical") < -0.1 && carryingItem)
+			if (Input.GetAxis("Vertical") < -0.05 && carryingItem)
 			{
 				DropItem();
 				return true;
 			}
 
-			if (Input.GetAxis("Vertical") < -0.1 && !carryingItem)
+			if (Input.GetAxis("Vertical") < -0.05 && !carryingItem)
 			{
 				foreach (Interactable interactable in interactables)
 				{
@@ -126,12 +131,26 @@ namespace _General._Scripts.Player
 				}
 			}
 
+			if (Input.GetAxis("Vertical") > 0.05 && carryingItem)
+			{
+				foreach (Interactable interactable in interactables)
+				{
+					if (interactable.type != InteractionType.Item) continue;
+					Item item = interactable.gameObject.GetComponent<Item>();
+					DropItem();
+					PickUp(item);
+					interactable.onInteract?.Invoke(this);
+					return true;
+				}
+			}
+
 			if (Input.GetAxis("Fire1") > 0)
 			{
 				//Extinguisher takes priority
 				if (carryingItem && currentItem.type == ItemType.Extinguisher && roomTracker.inRoom &&
 				    roomTracker.currentRoom.FireLevel > 0)
 				{
+					audioMananager.Play(Extinguish);
 					roomTracker.currentRoom.Extinguish();
 					currentItem.UseUp(this);
 					return true;
@@ -155,11 +174,13 @@ namespace _General._Scripts.Player
 							Door door = interactable.GetComponent<Door>();
 							if (carryingItem && currentItem.type == ItemType.Axe && !door.IsOpen)
 							{
+								audioMananager.Play(SmashDoor);
 								door.IsOpen = true;
 								currentItem.UseUp(this);
 							}
 							else if (carryingItem && currentItem.type == ItemType.Board && door.IsOpen)
 							{
+								audioMananager.Play(BuildDoor);
 								door.IsOpen = false;
 								currentItem.UseUp(this);
 							}
@@ -178,6 +199,7 @@ namespace _General._Scripts.Player
 
 		private void PickUp(Item item)
 		{
+			if(item.type == ItemType.Cat) audioMananager.Play(Cat);
 			item.PickUp(this);
 			currentItem = item;
 			carryingItem = true;
@@ -186,6 +208,7 @@ namespace _General._Scripts.Player
 		private void DropItem()
 		{
 			if (!carryingItem) return;
+			if(currentItem.type == ItemType.Cat) audioMananager.Play(Cat);
 			currentItem.Drop(this);
 			currentItem = null;
 			carryingItem = false;

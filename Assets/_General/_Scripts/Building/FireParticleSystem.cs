@@ -1,62 +1,63 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class FireParticleSystem : MonoBehaviour
+namespace _General._Scripts.Building
 {
-	#region variables
-	//[Header("Set in Inspector")]
-	[Header("Set Dynamically")]
-
-	private int fireLevel = 0;
-	
-	#endregion
-
-	#region monobehavior methods
-
-	private void Start()
+	public class FireParticleSystem : MonoBehaviour
 	{
-		fireLevel = 0;
-	}
+		#region variables
+		//[Header("Set in Inspector")]
+		[Header("Set Dynamically")]
+
+		private int fireLevel = 0;
 	
-	public int FireLevel
-	{
-		get => fireLevel;
-		set
+		#endregion
+
+		#region monobehavior methods
+
+		private void Start()
 		{
-			fireLevel = value;
-			ParticleSystem ps = this.gameObject.GetComponent<ParticleSystem>();
-			ParticleSystem.MainModule main = ps.main;
-			ParticleSystem.EmissionModule em = ps.emission;
-
-			switch (fireLevel)
+			fireLevel = 0;
+		}
+	
+		public int FireLevel
+		{
+			get => fireLevel;
+			set
 			{
-				case 1:
-					ps.Play();
-					em.rateOverTime = 3;
-					main.startSize = 0.5f;
-					break;
-				case 2:
-					ps.Play();
-					em.rateOverTime = 3;
-					main.startSize = 1.5f;
-					break;
-				case 3 :
-					ps.Play();
-					em.rateOverTime = 5;
-					main.startSize = 3;
-					break;
-				default:
-					em.rateOverTime = 0; 
-					main.startSize = 1;
-					ps.Stop();
-					break;
-			}
-		} 
+				fireLevel = value;
+				ParticleSystem ps = this.gameObject.GetComponent<ParticleSystem>();
+				ParticleSystem.MainModule main = ps.main;
+				ParticleSystem.EmissionModule em = ps.emission;
+
+				switch (fireLevel)
+				{
+					case 1:
+						ps.Play();
+						em.rateOverTime = 3;
+						main.startSize = 0.5f;
+						break;
+					case 2:
+						ps.Play();
+						em.rateOverTime = 3;
+						main.startSize = 1.5f;
+						break;
+					case 3 :
+						ps.Play();
+						em.rateOverTime = 5;
+						main.startSize = 3;
+						break;
+					default:
+						em.rateOverTime = 0; 
+						main.startSize = 1;
+						ps.Stop();
+						break;
+				}
+			} 
+		}
+
+		#endregion
+
+		#region private methods
+		#endregion
 	}
-
-	#endregion
-
-    #region private methods
-    #endregion
 }

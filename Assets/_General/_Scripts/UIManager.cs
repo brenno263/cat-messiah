@@ -1,32 +1,33 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIManager : MonoBehaviour
+namespace _General._Scripts
 {
-    public void Level1()
+    public class UIManager : MonoBehaviour
     {
-        SceneManager.LoadScene("FireDetectionTesting");
-    }
+        public void Level1()
+        {
+            SceneManager.LoadScene("FireDetectionTesting");
+        }
 
-    public void Level2()
-    {
-        SceneManager.LoadScene("Ani-Test");
-    }
+        public void Level2()
+        {
+            SceneManager.LoadScene("Ani-Test");
+        }
 
-    public void Level3()
-    {
-        SceneManager.LoadScene("Ani-Test");
-    }
+        public void Level3()
+        {
+            SceneManager.LoadScene("Ani-Test");
+        }
 
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
 
-    public void Credits()
-    {
-        SceneManager.LoadScene("Credits");
+        public void Credits()
+        {
+            SceneManager.LoadScene("Credits");
+        }
     }
 }
