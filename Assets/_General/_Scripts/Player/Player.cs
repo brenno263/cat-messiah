@@ -20,6 +20,8 @@ namespace _General._Scripts.Player
 		public float climbHeight;
 		public float climbSpeed;
 
+		public float maxFallSpeed;
+		
 		public float interactionCooldownMax;
 
 		public Rigidbody2D rigid;
@@ -84,6 +86,7 @@ namespace _General._Scripts.Player
 		private void FixedUpdate()
 		{
 			Move();
+			if(TestFalling()) FallDeath();
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)
@@ -101,7 +104,7 @@ namespace _General._Scripts.Player
 		#endregion
 
 		#region private methods
-
+		
 		private bool ManageInteractions()
 		{
 			if (Input.GetAxis("Vertical") < -0.1 && carryingItem)
@@ -125,6 +128,7 @@ namespace _General._Scripts.Player
 
 			if (Input.GetAxis("Fire1") > 0)
 			{
+				//Extinguisher takes priority
 				if (carryingItem && currentItem.type == ItemType.Extinguisher && roomTracker.inRoom &&
 				    roomTracker.currentRoom.FireLevel > 0)
 				{
@@ -132,6 +136,7 @@ namespace _General._Scripts.Player
 					currentItem.UseUp(this);
 					return true;
 				}
+				
 				foreach (Interactable interactable in interactables)
 				{
 					switch (interactable.type)
@@ -148,12 +153,12 @@ namespace _General._Scripts.Player
 							interactable.onInteract?.Invoke(this);
 							// ReSharper disable once Unity.PerformanceCriticalCodeInvocation
 							Door door = interactable.GetComponent<Door>();
-							if (currentItem.type == ItemType.Axe && !door.IsOpen)
+							if (carryingItem && currentItem.type == ItemType.Axe && !door.IsOpen)
 							{
 								door.IsOpen = true;
 								currentItem.UseUp(this);
 							}
-							else if (currentItem.type == ItemType.Board && door.IsOpen)
+							else if (carryingItem && currentItem.type == ItemType.Board && door.IsOpen)
 							{
 								door.IsOpen = false;
 								currentItem.UseUp(this);
@@ -180,6 +185,7 @@ namespace _General._Scripts.Player
 
 		private void DropItem()
 		{
+			if (!carryingItem) return;
 			currentItem.Drop(this);
 			currentItem = null;
 			carryingItem = false;
@@ -213,7 +219,8 @@ namespace _General._Scripts.Player
 			}
 			else
 			{
-				PlayerState = Idling;
+				if (PlayerState.Direction() < 0) { PlayerState = FacingLeft; }
+				else PlayerState = FacingRight;
 				vel.x = 0;
 			}
 
@@ -230,6 +237,7 @@ namespace _General._Scripts.Player
 		private IEnumerator Climb(bool up)
 		{
 			if (climbing) yield break;
+			interactables.Clear();
 			climbing = true;
 			PlayerState = up ? ClimbingUp : ClimbingDown;
 			rigid.simulated = false;
@@ -248,6 +256,18 @@ namespace _General._Scripts.Player
 			climbing = false;
 			//playerstate is reset in move() now that climbing is false
 			rigid.simulated = true;
+		}
+		
+		private bool TestFalling() => (Mathf.Abs(rigid.velocity.y) > maxFallSpeed);
+
+		private void FallDeath()
+		{
+			DropItem();
+			
+			if (PlayerState.Direction() < 0) { PlayerState = FacingLeft; }
+			else PlayerState = FacingRight;
+			transform.rotation = Quaternion.AngleAxis(-90 * PlayerState.Direction(), Vector3.forward);
+			this.enabled = false;
 		}
 
 		#endregion

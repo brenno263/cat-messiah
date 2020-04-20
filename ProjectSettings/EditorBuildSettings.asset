@@ -15,9 +15,6 @@ EditorBuildSettings:
     path: Assets/_General/Scenes/WinScreen.unity
     guid: ae8b364786e48e246a036d58dfbb8993
   - enabled: 1
-    path: Assets/_General/Scenes/Ani-Test.unity
-    guid: f243b9cd67ba4dc46bf9a421b231b0a2
-  - enabled: 1
     path: Assets/_General/Scenes/FireDetectionTesting.unity
     guid: 65bc92f57f61e8a4e97adcce86969485
   m_configObjects: {}

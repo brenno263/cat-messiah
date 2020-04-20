@@ -19,6 +19,7 @@ namespace _General._Scripts.Building
 		public GameObject wallsBothPrefab;
 		public GameObject wallsRightPrefab;
 		public GameObject wallsLeftPrefab;
+		public GameObject floorPrefab;
 
 		public GameObject doorPrefab;
 
@@ -76,6 +77,16 @@ namespace _General._Scripts.Building
 					SetWalls(room, roomTForm, direction);
 				}
 			}
+			print("fetching");
+			//GameObject topFloor = Instantiate(new GameObject(), building.transform);
+			//topFloor.name = "Top Floor";
+			
+			for (int x = 0; x < width; x++)
+			{
+				int y = height;
+				GameObject floorGO = Instantiate(floorPrefab, building.transform);
+				floorGO.transform.localPosition = new Vector3(x * roomSize.x, y * roomSize.y, 0);
+			}
 			
 			for (int x = 0; x < width - 1; x++)
 			{
@@ -103,7 +114,7 @@ namespace _General._Scripts.Building
 			Vector3 entryDoorPos = entry.transform.position;
 			entryDoorPos.x += doorOffset.x;
 			entryDoorPos.y += doorOffset.y;
-			entryDoorGO.transform.localPosition = entryDoorPos;
+			entryDoorGO.transform.position = entryDoorPos;
 			
 			Door entryDoor = entryDoorGO.GetComponent<Door>();
 			entry.leftDoor = entryDoor;

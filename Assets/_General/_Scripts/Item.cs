@@ -4,7 +4,7 @@ namespace _General._Scripts
 {
 	public enum ItemType
 	{
-		Axe, Board, Cat, Extinguisher
+		Axe, Board, Cat, Extinguisher, Furniture
 	}
 	
 	public class Item : MonoBehaviour

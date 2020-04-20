@@ -42,10 +42,12 @@ TagManager:
   - 
   - 
   - 
-  - 
   m_SortingLayers:
   - name: Background
     uniqueID: 542796631
+    locked: 0
+  - name: Furniture
+    uniqueID: 1577651021
     locked: 0
   - name: Default
     uniqueID: 0

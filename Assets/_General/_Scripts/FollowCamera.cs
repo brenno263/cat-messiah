@@ -17,10 +17,21 @@ namespace _General._Scripts
 		public float smoothTime;
 
 		public float lookAhead;
+		public float normalSize;
+
+		public bool lookAtFocus;
+		public Vector2 focus;
+		public float focusSize;
+
+		public float minHeight;
+
+		public Camera thisCamera;
+
 		//[Header("Set Dynamically")]
 		//[Header("Fetched on Init")]
 
 		private Vector2 _currentVelocity = Vector3.zero;
+		private float _sizeVelocity = 0;
 
 		#endregion
 
@@ -33,8 +44,21 @@ namespace _General._Scripts
 
 		private void Update()
 		{
-			Vector2 targetPos = player.transform.position;
-			targetPos.x += lookAhead * player.PlayerState.Direction();
+			Vector2 targetPos;
+			float targetSize;
+			if (lookAtFocus)
+			{
+				targetPos = focus;
+				targetSize = focusSize;
+			}
+			else
+			{
+				targetPos = player.transform.position;
+				targetPos.x += lookAhead * player.PlayerState.MoveDirection();
+				targetSize = normalSize;
+			}
+
+			targetPos.y = Mathf.Max(targetPos.y, minHeight);
 
 			Vector3 pos = Vector2.SmoothDamp(
 				transform.position,
@@ -43,11 +67,20 @@ namespace _General._Scripts
 				smoothTime,
 				maxSpeed,
 				Time.deltaTime
-				);
+			);
 
 			pos.z = zCoordinate;
 
 			transform.position = pos;
+
+			thisCamera.orthographicSize = Mathf.SmoothDamp(
+				thisCamera.orthographicSize,
+				targetSize,
+				ref _sizeVelocity,
+				smoothTime,
+				maxSpeed,
+				Time.deltaTime
+			);
 		}
 
 		#endregion

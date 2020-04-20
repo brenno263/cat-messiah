@@ -31,6 +31,8 @@ namespace _General._Scripts.Building
         public int y;
 
         public GameObject walls;
+
+        public GameObject wallDebrisPrefab;
         
         public SpriteRenderer background; //this is a temporary way to visualize fire
 
@@ -50,7 +52,11 @@ namespace _General._Scripts.Building
             set
             {
                 _fireLevel = value;
-                if (value >= 4) walls.SetActive(false);
+                if (value >= 4)
+                {
+                    walls.SetActive(false);
+                    Instantiate(wallDebrisPrefab, transform);
+                }
                 UpdateBackground();
                 fireParticleSystem.FireLevel = _fireLevel;
             }
@@ -123,7 +129,7 @@ namespace _General._Scripts.Building
         
         public bool OnFire()
         {
-            return FireLevel > 0 && FireLevel < 4;
+            return FireLevel > 0;
         }
         
         #endregion
