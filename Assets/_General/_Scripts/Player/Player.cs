@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using _General._Scripts.Building;
 using UnityEngine;
 
 namespace _General._Scripts.Player
@@ -35,7 +36,7 @@ namespace _General._Scripts.Player
 		public float interactionCooldown = 0;
 
 		public List<Interactable> interactables;
-		
+
 		private static readonly int AnimatorPlayerState = Animator.StringToHash("PlayerState");
 
 		//[Header("Fetched on Init")]
@@ -46,13 +47,13 @@ namespace _General._Scripts.Player
 			private set
 			{
 				_playerState = value;
-				anim.SetInteger(AnimatorPlayerState, (int)value);
+				anim.SetInteger(AnimatorPlayerState, (int) value);
 			}
 		}
 
 		private PlayerState _playerState;
 
-		
+
 		public bool CanInteract
 		{
 			get => interactionCooldown < 0;
@@ -133,7 +134,19 @@ namespace _General._Scripts.Player
 							return true;
 						case Door:
 							interactable.onInteract?.Invoke(this);
-							//do door thing
+							// ReSharper disable once Unity.PerformanceCriticalCodeInvocation
+							Door door = interactable.GetComponent<Door>();
+							if (currentItem.type == ItemType.Axe && !door.IsOpen)
+							{
+								door.IsOpen = true;
+								currentItem.UseUp(this);
+							}
+							else if (currentItem.type == ItemType.Board && door.IsOpen)
+							{
+								door.IsOpen = false;
+								currentItem.UseUp(this);
+							}
+
 							return true;
 						case InteractionType.Item:
 							break;
@@ -188,7 +201,7 @@ namespace _General._Scripts.Player
 			else
 			{
 				PlayerState = Idling;
-				vel.x = 0; 
+				vel.x = 0;
 			}
 
 			rigid.velocity = vel;
