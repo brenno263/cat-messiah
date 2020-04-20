@@ -11,8 +11,6 @@ namespace _General._Scripts.Editor
 	{
 		private Vector2 roomSize = Vector2.one;
 
-		private float doorDrop = 0;
-
 		private int width = 1;
 		private int height = 1;
 
@@ -29,12 +27,6 @@ namespace _General._Scripts.Editor
 
 		private void OnGUI()
 		{
-			roomSize.x = EditorGUILayout.FloatField("Room Width", roomSize.x);
-
-			roomSize.y = EditorGUILayout.FloatField("Room Height", roomSize.y);
-
-			doorDrop = EditorGUILayout.FloatField("Door Drop", doorDrop);
-
 			width = EditorGUILayout.IntField("Building Width", width);
 			height = EditorGUILayout.IntField("Building Height", height);
 
@@ -51,7 +43,7 @@ namespace _General._Scripts.Editor
 				if (buildingGO != null)
 				{
 					BuildingGenerator generator = buildingGO.GetComponent<BuildingGenerator>();
-					if (generator != null) { generator.Run(width, height, roomSize, doorDrop, buildingGO); }
+					if (generator != null) { generator.Run(width, height, buildingGO); }
 				}
 			}
 

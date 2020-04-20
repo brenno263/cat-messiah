@@ -133,7 +133,7 @@ Transform:
   m_GameObject: {fileID: 386894783171970880}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.58, z: 1}
   m_Children:
   - {fileID: 4499391492406771752}
   m_Father: {fileID: 0}
@@ -151,4 +151,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51ec63ce867933f40baeb469747aec42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorObject: {fileID: 1896469061272775}
   isOpen: 0

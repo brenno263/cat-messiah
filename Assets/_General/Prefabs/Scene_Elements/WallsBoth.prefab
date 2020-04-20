@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7995114813043615142}
   - component: {fileID: 5371388658324662114}
-  - component: {fileID: 8148860690603915945}
+  - component: {fileID: 6208835849658168473}
   m_Layer: 0
-  m_Name: RoomBoth
+  m_Name: WallsBoth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1ba6cc6245006564f98ddb1b0a8f2c81, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d2f90effdcab3804ab96ff493bac2534, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -81,8 +81,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &8148860690603915945
-PolygonCollider2D:
+--- !u!61 &6208835849658168473
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -94,29 +94,16 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -2.3510957}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.56, y: 2.56}
+    oldSize: {x: 6.4, y: 4.8}
     newSize: {x: 2.56, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -1.28, y: -1.16}
-      - {x: -1.28, y: -1.28}
-      - {x: 1.28, y: -1.28}
-      - {x: 1.28, y: -1.17}
-      - {x: 0.82, y: -1.16}
-    - - {x: -1.28, y: 1.28}
-      - {x: -1.28, y: -0.39}
-      - {x: -1.1899999, y: -0.39}
-      - {x: -1.17, y: -0.37}
-      - {x: -1.15412, y: 1.1651095}
-      - {x: 1.149498, y: 1.1958159}
-      - {x: 1.1634359, y: -0.43541893}
-      - {x: 1.28, y: -0.45999998}
-      - {x: 1.28, y: 1.28}
+  serializedVersion: 2
+  m_Size: {x: 6.4, y: 0.09780884}
+  m_EdgeRadius: 0

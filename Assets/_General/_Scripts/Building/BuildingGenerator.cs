@@ -14,11 +14,15 @@ namespace _General._Scripts.Building
 		[Header("Set in Inspector")]
 		public GameObject roomPrefab;
 
+		public Vector2 roomSize;
+
 		public GameObject wallsBothPrefab;
 		public GameObject wallsRightPrefab;
 		public GameObject wallsLeftPrefab;
 
 		public GameObject doorPrefab;
+
+		public Vector2 doorOffset;
 
 		//[Header("Set Dynamically")]
 		//[Header("Fetched on Init")]
@@ -39,10 +43,11 @@ namespace _General._Scripts.Building
 		#region private methods
 		#endregion
     
-		public void Run(int width, int height, Vector2 roomSize, float doorDrop, GameObject buildingGO)
+		public void Run(int width, int height, GameObject buildingGO)
 		{
 			var roomGOs = new GameObject[width, height];
 			var rooms = new Room[width, height];
+			Building building = GetComponent<Building>();
 
 			for (int x = 0; x < width; x++)
 			{
@@ -59,11 +64,12 @@ namespace _General._Scripts.Building
 					
 					room.x = x;
 					room.y = y;
-
+					room.building = building;
 					
 					RoomDirection direction = Both;
 					if (x == 0) direction = Right;
 					if (x == width - 1) direction = Left;
+					if (x == 0 && y == 0) direction = Both;
 					
 					SetWalls(room, roomTForm, direction);
 				}
@@ -80,14 +86,25 @@ namespace _General._Scripts.Building
 					GameObject doorGO = Instantiate(doorPrefab, buildingGO.transform);
 					Door door = doorGO.GetComponent<Door>();
 					Vector3 doorPos = roomGO.transform.position;
-					doorPos.x += roomSize.x;
-					doorPos.y -= doorDrop;
+					doorPos.x += roomSize.x + doorOffset.x;
+					doorPos.y += doorOffset.y;
 					doorGO.transform.position = doorPos;
 
 					room.rightDoor = door;
 					nextRoom.leftDoor = door;
 				}
 			}
+
+			Room entry = rooms[0, 0];
+			GameObject entryDoorGO = Instantiate(doorPrefab, buildingGO.transform);
+			Vector3 entryDoorPos = entry.transform.position;
+			entryDoorPos.x += doorOffset.x;
+			entryDoorPos.y += doorOffset.y;
+			entryDoorGO.transform.position = entryDoorPos;
+			
+			Door entryDoor = entryDoorGO.GetComponent<Door>();
+			entry.leftDoor = entryDoor;
+			entryDoor.IsOpen = true;
 		}
 
 		private void SetWalls(Room room, Transform roomTForm, RoomDirection direction)
