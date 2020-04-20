@@ -12,9 +12,8 @@ namespace _General._Scripts
 		#region variables
 
 		[Header("Set in Inspector")]
-		public Collider2D trigger;
 
-		public new Collider2D collider;
+		public ItemType type;
 
 		public Rigidbody2D rigid;
 
@@ -29,6 +28,10 @@ namespace _General._Scripts
 		public Vector2 carryingPosition;
 
 		public Vector2 carryingScale;
+		
+		public Collider2D trigger;
+
+		public new Collider2D collider;
 
 		[Header("Set Dynamically")]
 		public bool carrying;
@@ -63,6 +66,13 @@ namespace _General._Scripts
 			rigid.AddTorque((Random.value - 0.5f)  * dropSpinMax);
 
 			carrying = false;
+		}
+
+		public void UseUp(Player.Player player)
+		{
+			player.currentItem = null;
+			player.carryingItem = false;
+			Destroy(gameObject);
 		}
 
 		#region monobehavior methods

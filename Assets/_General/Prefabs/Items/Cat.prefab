@@ -162,8 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d45c524f8f487545bbf99b8d39a1eef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trigger: {fileID: 1365759492480307502}
-  collider: {fileID: 7777635888747178832}
+  type: 2
   rigid: {fileID: 1365759492480307498}
   interactable: {fileID: 1365759492480307496}
   dropSpinMax: 20
@@ -171,6 +170,8 @@ MonoBehaviour:
   carryingRotation: 0
   carryingPosition: {x: 0, y: 1}
   carryingScale: {x: 1, y: 1}
+  trigger: {fileID: 1365759492480307502}
+  collider: {fileID: 7777635888747178832}
   carrying: 1
 --- !u!70 &1365759492480307502
 CapsuleCollider2D:
