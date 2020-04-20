@@ -34,11 +34,14 @@ namespace _General._Scripts.Building
         
         public SpriteRenderer background; //this is a temporary way to visualize fire
 
-        public Building building;
+        public FireParticleSystem fireParticleSystem;
 
         [Header("Set Dynamically")]
         public float fireCounter;
-        
+
+        [Header("Fetched on Init")]
+        public Building building;
+
         public int roomType;
         
         public int FireLevel
@@ -49,6 +52,7 @@ namespace _General._Scripts.Building
                 _fireLevel = value;
                 if (value >= 4) walls.SetActive(false);
                 UpdateBackground();
+                fireParticleSystem.FireLevel = _fireLevel;
             }
         }
 
