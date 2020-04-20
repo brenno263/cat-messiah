@@ -56,16 +56,6 @@ namespace _General._Scripts.Building
 
 		private void Start()
 		{
-			initLevelOne();
-			StartCoroutine(UpdateFires());
-		}
-
-		#endregion
-
-		#region private methods
-
-		private void initLevelOne()
-		{
 			var roomsArr = transform.GetComponentsInChildren<Room>();
 
 			xMax = roomsArr.OrderBy(t => t.x).Last().x + 1;
@@ -83,7 +73,14 @@ namespace _General._Scripts.Building
 				rooms[room.x, room.y] = room;
 				roomExists[room.x, room.y] = true;
 			}
+			
+			StartCoroutine(UpdateFires());
+			GenerateRandomFire();
 		}
+
+		#endregion
+
+		#region private methods
 
 		/// <summary>
 		/// Use StopAllCoroutines to stop.
