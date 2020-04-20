@@ -42,9 +42,6 @@ namespace _General._Scripts.Building
         [Header("Fetched on Init")]
         public Building building;
 
-        [Header("Set Dynamically")]
-        public float fireCounter;
-        
         public int roomType;
         
         public int FireLevel
@@ -55,7 +52,7 @@ namespace _General._Scripts.Building
                 _fireLevel = value;
                 fireParticleSystem.FireLevel = _fireLevel;
                 if (value >= 4) gameObject.SetActive(false);
-                UpdateBackground();
+                //UpdateBackground();
             }
         }
 

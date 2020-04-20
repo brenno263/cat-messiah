@@ -26,36 +26,29 @@ public class FireParticleSystem : MonoBehaviour
 		{
 			fireLevel = value;
 			ParticleSystem ps = this.gameObject.GetComponent<ParticleSystem>();
+			ParticleSystem.MainModule main = ps.main;
 			ParticleSystem.EmissionModule em = ps.emission;
-			ParticleSystem.SizeOverLifetimeModule solm = ps.sizeOverLifetime;
-			ParticleSystem.MinMaxCurve mmc = solm.size;
 
 			switch (fireLevel)
 			{
 				case 1:
-					print("case 1");
 					ps.Play();
-					em.rateOverTime = 2;
-					mmc.constant = 0.5f;
+					em.rateOverTime = 3;
+					main.startSize = 0.5f;
 					break;
 				case 2:
-					print("case 2");
-
 					ps.Play();
-					em.rateOverTime = 5;
-					mmc.constantMax = 1;
+					em.rateOverTime = 3;
+					main.startSize = 1.5f;
 					break;
 				case 3 :
-					print("case 3");
-
 					ps.Play();
 					em.rateOverTime = 5;
-					mmc.constantMax = 3;
+					main.startSize = 3;
 					break;
 				default:
-					print("default");
-
 					em.rateOverTime = 0; 
+					main.startSize = 1;
 					ps.Stop();
 					break;
 			}
