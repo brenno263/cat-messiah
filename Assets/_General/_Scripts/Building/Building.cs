@@ -1,12 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 // ReSharper disable PossibleMultipleEnumeration
 
 namespace _General._Scripts.Building
 {
+	[Serializable]
+	public class RoomSprites
+	{
+		public string name;
+		public List<Sprite> sprites;
+	}
+	
 	public class Building : MonoBehaviour
 	{
 		#region variables
@@ -21,6 +30,9 @@ namespace _General._Scripts.Building
 		public double spreadFireChance;
 
 		public double randomFireChance;
+
+		[SerializeField]
+		public List<RoomSprites> roomBackgroundDictionary;
 
 		[Header("Set Dynamically")]
 		public Room[,] rooms;

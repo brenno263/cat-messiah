@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
-  climbHeight: 5
+  climbHeight: 4.8
   climbSpeed: 3
   interactionCooldownMax: 0.2
   rigid: {fileID: 3917735820130295623}
@@ -158,6 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc8af2f7ccfa47b4299fc2c429ced204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heatLevel: 1
   maxTemperature: 100
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   hotColor: {r: 1, g: 0, b: 0, a: 1}

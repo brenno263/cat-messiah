@@ -201,7 +201,7 @@ namespace _General._Scripts.Player
 			PlayerState = up ? ClimbingUp : ClimbingDown;
 			rigid.simulated = false;
 			float startY = transform.position.y;
-			float y = 0;
+			float y = startY;
 			while (up && y < startY + climbHeight || !up && y > startY - climbHeight)
 			{
 				Transform trans = transform;
