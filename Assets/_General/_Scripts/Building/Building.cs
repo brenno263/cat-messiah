@@ -142,7 +142,7 @@ namespace _General._Scripts.Building
 						}
 
 						//up
-						if (IsSafeRoom(i, j - 1)) { fireGrid[i, j - 1] += basePoints + (rooms[i, j].hasStairs ? 2 : 1); }
+						if (IsSafeRoom(i, j - 1)) { fireGrid[i, j - 1] += basePoints + (rooms[i, j - 1].hasStairs ? 2 : 1); }
 					}
 				}
 			}
