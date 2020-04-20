@@ -50,9 +50,9 @@ namespace _General._Scripts.Building
             set
             {
                 _fireLevel = value;
+                if (value >= 4) walls.SetActive(false);
+                UpdateBackground();
                 fireParticleSystem.FireLevel = _fireLevel;
-                if (value >= 4) gameObject.SetActive(false);
-                //UpdateBackground();
             }
         }
 
@@ -103,7 +103,7 @@ namespace _General._Scripts.Building
             FireLevel += 1;
         }
         
-        private void Extinguish()
+        public void Extinguish()
         {
             FireLevel = Math.Max(FireLevel - 2, 0);
             ResetFireCounter();

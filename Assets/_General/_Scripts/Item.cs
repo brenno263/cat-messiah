@@ -58,7 +58,7 @@ namespace _General._Scripts
 			if (!carrying) return;
 			Transform trans = transform;
 			trans.SetParent(null);
-			trans.SetGlobalScale2D(groundScale);
+			trans.localScale = groundScale;
 			
 			collider.enabled = true;
 			rigid.simulated = true;

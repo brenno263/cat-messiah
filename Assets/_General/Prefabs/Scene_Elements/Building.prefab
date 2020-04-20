@@ -44,12 +44,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac9dcabadcfee474ba9aaa4cce1abede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireLevelAdvanceTimerMin: 0
-  fireLevelAdvanceTimerMax: 0
-  updateFireTick: 0
-  spreadFireChance: 0
-  randomFireChance: 0
-  roomBackgroundDictionary: []
+  fireLevelAdvanceTimerMin: 40
+  fireLevelAdvanceTimerMax: 20
+  updateFireTick: 8
+  spreadFireChance: 0.1
+  randomFireChance: 0.001
+  roomBackgroundDictionary:
+  - name: blue
+    sprites:
+    - {fileID: 21300000, guid: 530376674fd59134a80fc425453fa1c0, type: 3}
+    - {fileID: 21300000, guid: fd25b76604888554ebbd332b8d361c83, type: 3}
+    - {fileID: 21300000, guid: fea4dfd99bc6bdf4c9430148d4fc5534, type: 3}
+    - {fileID: 21300000, guid: 1c9f4c37287c1734ab3cedbfc0a27b5d, type: 3}
+  - name: brick
+    sprites: []
+  - name: 
+    sprites: []
   xMax: 0
   yMax: 0
 --- !u!114 &7791776426381304526
@@ -66,7 +76,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 329444597144883271, guid: 3c7bf5bf389566544bfea6af3ccb711c,
     type: 3}
-  roomSize: {x: 6.4, y: 4.8}
+  roomSize: {x: 6.4, y: 4.7}
   wallsBothPrefab: {fileID: 1506458602499147645, guid: 6173bb2713d25b843b0e449f997df8cc,
     type: 3}
   wallsRightPrefab: {fileID: 7586635532313682546, guid: ecd8f579a61dd004fa57d888bc2535d0,

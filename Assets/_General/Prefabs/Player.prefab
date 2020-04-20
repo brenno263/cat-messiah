@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3917735820130295623}
   - component: {fileID: 3917735820130295622}
   - component: {fileID: 9021086241170290796}
+  - component: {fileID: -3419330751488311190}
   - component: {fileID: 3917735820130295621}
   m_Layer: 8
   m_Name: Player
@@ -30,8 +31,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3917735820130295620}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.3372, y: -1.5843, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -98,8 +99,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.028952219, y: -0.030477744}
-  m_Size: {x: 0.2654609, y: 0.40840763}
+  m_Offset: {x: -0.12481499, y: -0.14624608}
+  m_Size: {x: 1.0004082, y: 1.6938379}
   m_Direction: 0
 --- !u!50 &3917735820130295623
 Rigidbody2D:
@@ -140,6 +141,7 @@ MonoBehaviour:
   interactionCooldownMax: 0.2
   rigid: {fileID: 3917735820130295623}
   anim: {fileID: 3917735820130295621}
+  roomTracker: {fileID: -3419330751488311190}
   facingRight: 1
   climbing: 0
   currentItem: {fileID: 0}
@@ -158,16 +160,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc8af2f7ccfa47b4299fc2c429ced204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heatLevel: 1
   maxTemperature: 100
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   hotColor: {r: 1, g: 0, b: 0, a: 1}
+  roomTracker: {fileID: -3419330751488311190}
   spriteRenderer: {fileID: 3917735820130295617}
   heatingRates:
-  - -5
+  - -10
   - 5
-  - 11.62
+  - 25
+  - 40
+  heatLevel: 0
   temperature: 0
+--- !u!114 &-3419330751488311190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3917735820130295620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8711b7641ccd6849b78bca128cedd58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inRoom: 0
+  currentRoom: {fileID: 0}
+  lastRoom: {fileID: 0}
 --- !u!95 &3917735820130295621
 Animator:
   serializedVersion: 3
