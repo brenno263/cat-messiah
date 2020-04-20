@@ -49,6 +49,7 @@ MonoBehaviour:
   updateFireTick: 0
   spreadFireChance: 0
   randomFireChance: 0
+  roomBackgroundDictionary: []
   xMax: 0
   yMax: 0
 --- !u!114 &7791776426381304526
@@ -74,3 +75,4 @@ MonoBehaviour:
     type: 3}
   doorPrefab: {fileID: 386894783171970880, guid: c0f3557d9212e904f899142d9c28d5bc,
     type: 3}
+  doorOffset: {x: -0.72, y: -3.78}
