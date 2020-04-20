@@ -25,7 +25,8 @@ TagManager:
   - Background
   - LoadingZone
   - Item
-  - 
+  - RoomTrigger
+  - Furniture
   - 
   - 
   - 

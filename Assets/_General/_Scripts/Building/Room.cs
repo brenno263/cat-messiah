@@ -30,6 +30,8 @@ namespace _General._Scripts.Building
 
         public int y;
 
+        public GameObject walls;
+        
         public SpriteRenderer background; //this is a temporary way to visualize fire
 
         public FireParticleSystem fireParticleSystem;
@@ -40,14 +42,20 @@ namespace _General._Scripts.Building
         [Header("Fetched on Init")]
         public Building building;
 
+        [Header("Set Dynamically")]
+        public float fireCounter;
+        
+        public int roomType;
+        
         public int FireLevel
         {
             get => _fireLevel;
             set
             {
-                if (value >= 4) gameObject.SetActive(false);
                 _fireLevel = value;
                 fireParticleSystem.FireLevel = _fireLevel;
+                if (value >= 4) gameObject.SetActive(false);
+                UpdateBackground();
             }
         }
 
@@ -55,15 +63,11 @@ namespace _General._Scripts.Building
         // ReSharper disable once InconsistentNaming
         private int _fireLevel;
 
-        
-        //[Header("Fetched on Init")]
-
         #endregion
         #region monobehavior methods
 
         private void Start()
         {
-            building = Building.Singleton;
             ResetFireCounter();
         }
 
@@ -86,6 +90,14 @@ namespace _General._Scripts.Building
             else
             {
                 fireCounter -= Time.deltaTime;
+            }
+        }
+
+        public void UpdateBackground()
+        {
+            if (FireLevel < 4 && FireLevel >= 0)
+            {
+                background.sprite = building.roomBackgroundDictionary[roomType].sprites[FireLevel];
             }
         }
 

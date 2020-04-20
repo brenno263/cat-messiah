@@ -1,12 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 // ReSharper disable PossibleMultipleEnumeration
 
 namespace _General._Scripts.Building
 {
+	[Serializable]
+	public class RoomSprites
+	{
+		public string name;
+		public List<Sprite> sprites;
+	}
+	
 	public class Building : MonoBehaviour
 	{
 		#region variables
@@ -21,6 +30,9 @@ namespace _General._Scripts.Building
 		public double spreadFireChance;
 
 		public double randomFireChance;
+
+		[SerializeField]
+		public List<RoomSprites> roomBackgroundDictionary;
 
 		[Header("Set Dynamically")]
 		public Room[,] rooms;
@@ -109,7 +121,7 @@ namespace _General._Scripts.Building
 						if (IsSafeRoom(i + 1, j))
 						{
 							int points = basePoints;
-							if (! (rooms[i, j].rightDoor != null && !rooms[i, j].rightDoor.isOpen
+							if (! (rooms[i, j].rightDoor != null && !rooms[i, j].rightDoor.IsOpen
 							    || rooms[i, j].roomOrientation != RoomDirection.Left)) {points += 2;  }
 
 							fireGrid[i + 1, j] += points;
@@ -123,7 +135,7 @@ namespace _General._Scripts.Building
 						{
 							int points = basePoints;
 							
-							if (! (rooms[i, j].leftDoor != null && !rooms[i, j].leftDoor.isOpen
+							if (! (rooms[i, j].leftDoor != null && !rooms[i, j].leftDoor.IsOpen
 							    || rooms[i, j].roomOrientation == RoomDirection.Right)) { points += 2;}
 
 							fireGrid[i - 1, j] += points;
