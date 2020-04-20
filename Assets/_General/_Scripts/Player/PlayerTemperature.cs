@@ -17,6 +17,8 @@ namespace _General._Scripts.Player
 
 		public SpriteRenderer spriteRenderer;
 
+		public Player player;
+
 		//contains a heating rate in degrees/second for each level of burning room
 		public List<float> heatingRates;
 
@@ -38,7 +40,8 @@ namespace _General._Scripts.Player
 
 		private void Update()
 		{
-			heatLevel = !roomTracker.inRoom ? 0 : roomTracker.currentRoom.FireLevel;
+			//set the fire level to 0 if outside, don't update if climbing
+			if (!player.climbing) heatLevel = !roomTracker.inRoom ? 0 : roomTracker.currentRoom.FireLevel;
 
 			if (temperature <= 0.01f && heatLevel == 0) return;
 			spriteRenderer.color = Color.Lerp(normalColor, hotColor, temperature / maxTemperature);
@@ -51,7 +54,7 @@ namespace _General._Scripts.Player
 			}
 			else
 			{
-				GetComponent<Player>().Burn();
+				player.Burn();
 				temperature = 0;
 			}
 		}

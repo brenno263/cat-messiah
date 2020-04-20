@@ -83,6 +83,8 @@ MonoBehaviour:
     type: 3}
   wallsLeftPrefab: {fileID: 4259568307121777001, guid: 2f6c1a9a184130a44bcd24c1ea7ffc4b,
     type: 3}
+  floorPrefab: {fileID: 1506458602499147645, guid: b1056cd5481f85242b46acc33b6939ea,
+    type: 3}
   doorPrefab: {fileID: 386894783171970880, guid: c0f3557d9212e904f899142d9c28d5bc,
     type: 3}
   doorOffset: {x: -3.2, y: -1.05}
