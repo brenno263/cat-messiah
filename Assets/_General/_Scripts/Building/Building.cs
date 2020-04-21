@@ -126,13 +126,13 @@ namespace _General._Scripts.Building
 						{
 							int points = basePoints;
 							if (! (rooms[i, j].rightDoor != null && !rooms[i, j].rightDoor.IsOpen
-							    || rooms[i, j].roomOrientation != RoomDirection.Left)) {points += 2;  }
+							    || rooms[i, j].roomOrientation != RoomDirection.Left)) {points += 3;  }
 
 							fireGrid[i + 1, j] += points;
 						}
 
 						//down
-						if (IsSafeRoom(i, j + 1)) { fireGrid[i, j + 1] += basePoints + (rooms[i, j + 1].hasStairs ? 2 : 1); }
+						if (IsSafeRoom(i, j + 1)) { fireGrid[i, j + 1] += basePoints + (rooms[i, j + 1].hasStairs ? 2 : 0); }
 
 						//left
 						if (IsSafeRoom(i - 1, j))
@@ -140,7 +140,7 @@ namespace _General._Scripts.Building
 							int points = basePoints;
 							
 							if (! (rooms[i, j].leftDoor != null && !rooms[i, j].leftDoor.IsOpen
-							    || rooms[i, j].roomOrientation == RoomDirection.Right)) { points += 2;}
+							    || rooms[i, j].roomOrientation == RoomDirection.Right)) { points += 3;}
 
 							fireGrid[i - 1, j] += points;
 						}
