@@ -33,7 +33,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 8157406313773213984}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -138,10 +139,12 @@ MonoBehaviour:
   speed: 6
   climbHeight: 4.8
   climbSpeed: 3
+  maxFallSpeed: 5
   interactionCooldownMax: 0.2
   rigid: {fileID: 3917735820130295623}
   anim: {fileID: 3917735820130295621}
   roomTracker: {fileID: -3419330751488311190}
+  audioMananager: {fileID: 6380809974580519759}
   facingRight: 1
   climbing: 0
   currentItem: {fileID: 0}
@@ -208,3 +211,118 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &6298215059061651220
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8157406313773213984}
+  - component: {fileID: 6380809974580519759}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8157406313773213984
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6298215059061651220}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.040483944, y: -0.22043987, z: -2.4014823}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3917735820130295618}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6380809974580519759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6298215059061651220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 281b5063f4a69764795b142cb9a78991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - clip: {fileID: 8300000, guid: 010f6af29972b2a4c8b85af654031591, type: 3}
+    type: 0
+    volume: 0.3
+    pitch: 0.8
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 010f6af29972b2a4c8b85af654031591, type: 3}
+    type: 0
+    volume: 0.3
+    pitch: 1.2
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: f4f00ed6459462e4fab4d4592e3c9875, type: 3}
+    type: 0
+    volume: 0.3
+    pitch: 0.8
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: f4f00ed6459462e4fab4d4592e3c9875, type: 3}
+    type: 0
+    volume: 0.3
+    pitch: 1.2
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 7f21be4248c53c9488ca8f64665d0c80, type: 3}
+    type: 1
+    volume: 0.3
+    pitch: 0.8
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 7f21be4248c53c9488ca8f64665d0c80, type: 3}
+    type: 1
+    volume: 0.3
+    pitch: 1.2
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: d360db6f29d7fcd4d86d24edfbe2fb25, type: 3}
+    type: 2
+    volume: 0.3
+    pitch: 0.8
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: d360db6f29d7fcd4d86d24edfbe2fb25, type: 3}
+    type: 2
+    volume: 0.3
+    pitch: 1.2
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: e808dfcadd51454438ac0ca077a3ca6e, type: 3}
+    type: 3
+    volume: 0.3
+    pitch: 0.8
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 15d74140a87939f4b810bacfb02a4537, type: 3}
+    type: 3
+    volume: 0.3
+    pitch: 0.8
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 5eede0c289a5e75469c3c06d29ba08fc, type: 3}
+    type: 3
+    volume: 0.3
+    pitch: 0.8
+    source: {fileID: 0}
+  songs:
+  - song: {fileID: 8300000, guid: 311ad5fec4c89584595d0e756b593025, type: 3}
+    songLength: 42.6
+  - song: {fileID: 8300000, guid: 59e686e61981920428b374f5ff4ebf8c, type: 3}
+    songLength: 42.6
+  - song: {fileID: 8300000, guid: eea02394c572aee418ddd613f0966ebd, type: 3}
+    songLength: 42.6
+  walkSound:
+    clip: {fileID: 8300000, guid: 91a3bfb4e6b19544481118be7adf9d22, type: 3}
+    type: 4
+    volume: 0.438
+    pitch: 1.28
+    source: {fileID: 0}
+  currentSongNdx: 0
+  lookaheadTime: 0.1
+  musicVolume: 0.15
