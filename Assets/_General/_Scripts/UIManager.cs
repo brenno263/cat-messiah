@@ -25,9 +25,16 @@ namespace _General._Scripts
 
         public void NextLevel()
         {
-            int level = PlayerPrefs.GetInt("level") - 1;
+            int level = PlayerPrefs.GetInt("level");
             
             if(level < 2) SceneManager.LoadScene(levels[level + 1]);
+        }
+
+        public void RestartLevel()
+        {
+            int level = PlayerPrefs.GetInt("level");
+            
+            if(level < 3) SceneManager.LoadScene(levels[level]);
         }
 
         public void QuitGame()

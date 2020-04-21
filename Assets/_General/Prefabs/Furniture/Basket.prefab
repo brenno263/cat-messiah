@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 761266680499441125}
   - component: {fileID: 761266680499441146}
   - component: {fileID: 7792002160304062892}
+  - component: {fileID: 2909286103818996931}
+  - component: {fileID: 1931426097253004099}
   m_Layer: 0
   m_Name: Basket
   m_TagString: Untagged
@@ -107,3 +109,29 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
+--- !u!114 &2909286103818996931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761266680499441147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7b6e3934f35d0845ad324f57bcab227, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 4
+--- !u!114 &1931426097253004099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761266680499441147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24027eb839aadcf459d287e3fd04e30f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  catPosition: {x: 0, y: 0.5}

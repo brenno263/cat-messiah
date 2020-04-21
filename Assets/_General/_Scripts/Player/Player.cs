@@ -292,7 +292,7 @@ namespace _General._Scripts.Player
 		{
 			PlayerPrefs.SetInt("level", level);
 			PlayerPrefs.Save();
-			if (level == 3) { SceneManager.LoadScene("WinScreenFinal"); }
+			if (level == 2) { SceneManager.LoadScene("WinScreenFinal"); }
 			else { SceneManager.LoadScene("WinScreen"); }
 		}
 

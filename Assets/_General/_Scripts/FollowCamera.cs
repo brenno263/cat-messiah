@@ -39,7 +39,9 @@ namespace _General._Scripts
 
 		private void Start()
 		{
-			transform.position = player.transform.position;
+			Vector3 pos = player.transform.position;
+			pos.y = Mathf.Max(pos.y, minHeight);
+			transform.position = pos;
 		}
 
 		private void Update()
