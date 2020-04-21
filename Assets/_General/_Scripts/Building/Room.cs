@@ -31,14 +31,19 @@ namespace _General._Scripts.Building
         public int y;
 
         public GameObject walls;
+
+        public GameObject wallDebrisPrefab;
         
         public SpriteRenderer background; //this is a temporary way to visualize fire
 
-        public Building building;
+        public FireParticleSystem fireParticleSystem;
 
         [Header("Set Dynamically")]
         public float fireCounter;
-        
+
+        [Header("Fetched on Init")]
+        public Building building;
+
         public int roomType;
         
         public int FireLevel
@@ -47,8 +52,13 @@ namespace _General._Scripts.Building
             set
             {
                 _fireLevel = value;
-                if (value >= 4) gameObject.SetActive(false);
+                if (value >= 4)
+                {
+                    walls.SetActive(false);
+                    Instantiate(wallDebrisPrefab, transform);
+                }
                 UpdateBackground();
+                fireParticleSystem.FireLevel = _fireLevel;
             }
         }
 
@@ -99,7 +109,7 @@ namespace _General._Scripts.Building
             FireLevel += 1;
         }
         
-        private void Extinguish()
+        public void Extinguish()
         {
             FireLevel = Math.Max(FireLevel - 2, 0);
             ResetFireCounter();
@@ -119,7 +129,7 @@ namespace _General._Scripts.Building
         
         public bool OnFire()
         {
-            return FireLevel > 0 && FireLevel < 4;
+            return FireLevel > 0;
         }
         
         #endregion

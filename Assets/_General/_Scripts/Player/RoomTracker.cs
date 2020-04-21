@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using _General._Scripts.Building;
+using UnityEngine;
 
 namespace _General._Scripts.Player
 {
@@ -9,20 +11,37 @@ namespace _General._Scripts.Player
 		//[Header("Set Dynamically")]
 		//[Header("Fetched on Init")]
 
-		private string _currentRoom = null; //update to type room
+		public bool inRoom;
+		
+		public Room currentRoom;
+
+		public Room lastRoom;
 	
 		#endregion
 
-		public string GetRoom()
-		{
-			return _currentRoom;
-		}
-	
 		#region monobehavior methods
 
-		private void OnTriggerEnter(Collider other)
+		private void OnTriggerEnter2D(Collider2D other)
 		{
-			//update the current room. This object only collides with room triggers
+			Room room = other.GetComponent<Room>();
+			if (room == null) return;
+			
+			lastRoom = currentRoom;
+			currentRoom = room;
+			inRoom = true;
+		}
+
+		private void OnTriggerExit2D(Collider2D other)
+		{
+			Room room = other.GetComponent<Room>();
+			if (room == null || currentRoom == null) return;
+
+			if (room == currentRoom)
+			{
+				lastRoom = currentRoom;
+				currentRoom = null;
+				inRoom = false;
+			}
 		}
 
 		#endregion

@@ -7,21 +7,24 @@ namespace _General._Scripts.Player
 	{
 		#region variables
 
-		//placeholder for RoomTracker -> CurrentRoom() -> heatLevel
-		public int heatLevel = 1;
-
 		[Header("Set in Inspector")]
 		public float maxTemperature;
 
 		public Color normalColor;
 		public Color hotColor;
 
+		public RoomTracker roomTracker;
+
 		public SpriteRenderer spriteRenderer;
+
+		public Player player;
 
 		//contains a heating rate in degrees/second for each level of burning room
 		public List<float> heatingRates;
 
 		[Header("Set Dynamically")]
+		public int heatLevel = 0;
+
 		public float temperature;
 
 		//[Header("Fetched on Init")]
@@ -32,11 +35,15 @@ namespace _General._Scripts.Player
 
 		private void Start()
 		{
-			spriteRenderer.color = hotColor;
+			spriteRenderer.color = normalColor;
 		}
 
 		private void Update()
 		{
+			//set the fire level to 0 if outside, don't update if climbing
+			if (!player.climbing) heatLevel = !roomTracker.inRoom ? 0 : roomTracker.currentRoom.FireLevel;
+
+			if (temperature <= 0.01f && heatLevel == 0) return;
 			spriteRenderer.color = Color.Lerp(normalColor, hotColor, temperature / maxTemperature);
 
 			if (temperature < maxTemperature)
@@ -47,10 +54,9 @@ namespace _General._Scripts.Player
 			}
 			else
 			{
-				//get hella dead
+				player.Burn();
+				temperature = 0;
 			}
-
-			heatLevel = Input.GetAxis("Vertical") > 0.1 ? 1 : 0;
 		}
 
 		#endregion

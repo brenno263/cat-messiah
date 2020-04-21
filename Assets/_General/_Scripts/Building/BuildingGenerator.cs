@@ -19,6 +19,7 @@ namespace _General._Scripts.Building
 		public GameObject wallsBothPrefab;
 		public GameObject wallsRightPrefab;
 		public GameObject wallsLeftPrefab;
+		public GameObject floorPrefab;
 
 		public GameObject doorPrefab;
 
@@ -59,8 +60,10 @@ namespace _General._Scripts.Building
 					
 					roomGOs[x, y] = roomGO;
 					rooms[x, y] = room;
+
+					roomGO.name = "Room(" + x + "," + y + ")";
 					
-					roomTForm.position = new Vector3(x * roomSize.x, y * roomSize.y, 0);
+					roomTForm.localPosition = new Vector3(x * roomSize.x, y * roomSize.y, 0);
 					
 					room.x = x;
 					room.y = y;
@@ -73,6 +76,16 @@ namespace _General._Scripts.Building
 					
 					SetWalls(room, roomTForm, direction);
 				}
+			}
+			print("fetching");
+			//GameObject topFloor = Instantiate(new GameObject(), building.transform);
+			//topFloor.name = "Top Floor";
+			
+			for (int x = 0; x < width; x++)
+			{
+				int y = height;
+				GameObject floorGO = Instantiate(floorPrefab, building.transform);
+				floorGO.transform.localPosition = new Vector3(x * roomSize.x, y * roomSize.y, 0);
 			}
 			
 			for (int x = 0; x < width - 1; x++)
@@ -92,6 +105,7 @@ namespace _General._Scripts.Building
 
 					room.rightDoor = door;
 					nextRoom.leftDoor = door;
+					door.IsOpen = true;
 				}
 			}
 
