@@ -7,7 +7,7 @@ namespace _General._Scripts
 {
 	public enum InteractionType
 	{
-		Item, StairsUp, StairsDown, Door
+		Item, StairsUp, StairsDown, Door, Basket
 	}
 
 	public class Interactable : MonoBehaviour
