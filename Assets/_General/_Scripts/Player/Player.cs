@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using _General._Scripts.Building;
+using _General._Scripts.Sound;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,19 +10,22 @@ namespace _General._Scripts.Player
 {
 	using static PlayerState;
 	using static InteractionType;
+	using static SoundFx;
 
 	public class Player : MonoBehaviour
 	{
 		#region variables
 
 		[Header("Set in Inspector")]
+		public int level;
+
 		public float speed;
 
 		public float climbHeight;
 		public float climbSpeed;
 
 		public float maxFallSpeed;
-		
+
 		public float interactionCooldownMax;
 
 		public Rigidbody2D rigid;
@@ -29,6 +33,8 @@ namespace _General._Scripts.Player
 		public Animator anim;
 
 		public RoomTracker roomTracker;
+
+		public PlayerAudioManager audioMananager;
 
 		[Header("Set Dynamically")]
 		public bool facingRight = true;
@@ -53,6 +59,7 @@ namespace _General._Scripts.Player
 			{
 				_playerState = value;
 				anim.SetInteger(AnimatorPlayerState, (int) value);
+				audioMananager.WalkLoopPlaying = (int) value > 1;
 			}
 		}
 
@@ -86,7 +93,7 @@ namespace _General._Scripts.Player
 		private void FixedUpdate()
 		{
 			Move();
-			if(TestFalling()) FallDeath();
+			if (TestFalling()) FallDeath();
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)
@@ -104,16 +111,16 @@ namespace _General._Scripts.Player
 		#endregion
 
 		#region private methods
-		
+
 		private bool ManageInteractions()
 		{
-			if (Input.GetAxis("Vertical") < -0.1 && carryingItem)
+			if (Input.GetAxis("Vertical") < -0.05 && carryingItem)
 			{
 				DropItem();
 				return true;
 			}
 
-			if (Input.GetAxis("Vertical") < -0.1 && !carryingItem)
+			if (Input.GetAxis("Vertical") < -0.05 && !carryingItem)
 			{
 				foreach (Interactable interactable in interactables)
 				{
@@ -126,17 +133,31 @@ namespace _General._Scripts.Player
 				}
 			}
 
+			if (Input.GetAxis("Vertical") > 0.05 && carryingItem)
+			{
+				foreach (Interactable interactable in interactables)
+				{
+					if (interactable.type != InteractionType.Item) continue;
+					Item item = interactable.gameObject.GetComponent<Item>();
+					DropItem();
+					PickUp(item);
+					interactable.onInteract?.Invoke(this);
+					return true;
+				}
+			}
+
 			if (Input.GetAxis("Fire1") > 0)
 			{
 				//Extinguisher takes priority
 				if (carryingItem && currentItem.type == ItemType.Extinguisher && roomTracker.inRoom &&
 				    roomTracker.currentRoom.FireLevel > 0)
 				{
+					audioMananager.Play(Extinguish);
 					roomTracker.currentRoom.Extinguish();
 					currentItem.UseUp(this);
 					return true;
 				}
-				
+
 				foreach (Interactable interactable in interactables)
 				{
 					switch (interactable.type)
@@ -150,21 +171,36 @@ namespace _General._Scripts.Player
 							StartCoroutine(Climb(false));
 							return true;
 						case Door:
-							interactable.onInteract?.Invoke(this);
+
 							// ReSharper disable once Unity.PerformanceCriticalCodeInvocation
 							Door door = interactable.GetComponent<Door>();
 							if (carryingItem && currentItem.type == ItemType.Axe && !door.IsOpen)
 							{
+								interactable.onInteract?.Invoke(this);
+								audioMananager.Play(SmashDoor);
 								door.IsOpen = true;
 								currentItem.UseUp(this);
 							}
 							else if (carryingItem && currentItem.type == ItemType.Board && door.IsOpen)
 							{
+								interactable.onInteract?.Invoke(this);
+								audioMananager.Play(BuildDoor);
 								door.IsOpen = false;
 								currentItem.UseUp(this);
 							}
 
 							return true;
+						case Basket:
+							if (carryingItem && currentItem.type == ItemType.Cat)
+							{
+								Basket basket = interactable.GetComponent<Basket>();
+								Item cat = currentItem;
+								DropItem();
+								basket.PlaceCat(cat);
+								Invoke("Win", 5);
+							}
+
+							break;
 						case InteractionType.Item:
 							break;
 						default:
@@ -178,6 +214,7 @@ namespace _General._Scripts.Player
 
 		private void PickUp(Item item)
 		{
+			if (item.type == ItemType.Cat) audioMananager.Play(Cat);
 			item.PickUp(this);
 			currentItem = item;
 			carryingItem = true;
@@ -186,6 +223,7 @@ namespace _General._Scripts.Player
 		private void DropItem()
 		{
 			if (!carryingItem) return;
+			if (currentItem.type == ItemType.Cat) audioMananager.Play(Cat);
 			currentItem.Drop(this);
 			currentItem = null;
 			carryingItem = false;
@@ -221,6 +259,7 @@ namespace _General._Scripts.Player
 			{
 				if (PlayerState.Direction() < 0) { PlayerState = FacingLeft; }
 				else PlayerState = FacingRight;
+
 				vel.x = 0;
 			}
 
@@ -231,6 +270,36 @@ namespace _General._Scripts.Player
 		{
 			//burn to death
 			print("Player burned to death, oh no!");
+			Die();
+		}
+		
+		private bool TestFalling() => (Mathf.Abs(rigid.velocity.y) > maxFallSpeed);
+
+		private void FallDeath()
+		{
+			DropItem();
+
+			if (PlayerState.Direction() < 0) { PlayerState = FacingLeft; }
+			else PlayerState = FacingRight;
+
+			transform.rotation = Quaternion.AngleAxis(-90 * PlayerState.Direction(), Vector3.forward);
+			this.enabled = false;
+			
+			Invoke("Die", 5);
+		}
+
+		public void Win()
+		{
+			PlayerPrefs.SetInt("level", level);
+			PlayerPrefs.Save();
+			if (level == 3) { SceneManager.LoadScene("WinScreenFinal"); }
+			else { SceneManager.LoadScene("WinScreen"); }
+		}
+
+		public void Die()
+		{
+			PlayerPrefs.SetInt("level", level);
+			PlayerPrefs.Save();
 			SceneManager.LoadScene("DeathScreen");
 		}
 
@@ -256,18 +325,6 @@ namespace _General._Scripts.Player
 			climbing = false;
 			//playerstate is reset in move() now that climbing is false
 			rigid.simulated = true;
-		}
-		
-		private bool TestFalling() => (Mathf.Abs(rigid.velocity.y) > maxFallSpeed);
-
-		private void FallDeath()
-		{
-			DropItem();
-			
-			if (PlayerState.Direction() < 0) { PlayerState = FacingLeft; }
-			else PlayerState = FacingRight;
-			transform.rotation = Quaternion.AngleAxis(-90 * PlayerState.Direction(), Vector3.forward);
-			this.enabled = false;
 		}
 
 		#endregion
