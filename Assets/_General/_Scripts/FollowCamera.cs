@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using _General._Scripts.Player;
+using UnityEngine;
 
 namespace _General._Scripts
 {
@@ -7,42 +8,81 @@ namespace _General._Scripts
 		#region variables
 
 		[Header("Set in Inspector")]
-		public Transform focus;
-
-		public Player player;
+		public Player.Player player;
 
 		public float zCoordinate;
 
 		public float maxSpeed;
 
 		public float smoothTime;
+
+		public float lookAhead;
+		public float normalSize;
+
+		public bool lookAtFocus;
+		public Vector2 focus;
+		public float focusSize;
+
+		public float minHeight;
+
+		public Camera thisCamera;
+
 		//[Header("Set Dynamically")]
 		//[Header("Fetched on Init")]
 
 		private Vector2 _currentVelocity = Vector3.zero;
+		private float _sizeVelocity = 0;
 
 		#endregion
 
 		#region monobehavior methods
 
-		void Start()
+		private void Start()
 		{
-			transform.position = focus.position;
+			Vector3 pos = player.transform.position;
+			pos.y = Mathf.Max(pos.y, minHeight);
+			transform.position = pos;
 		}
 
-		void Update()
+		private void Update()
 		{
+			Vector2 targetPos;
+			float targetSize;
+			if (lookAtFocus)
+			{
+				targetPos = focus;
+				targetSize = focusSize;
+			}
+			else
+			{
+				targetPos = player.transform.position;
+				targetPos.x += lookAhead * player.PlayerState.MoveDirection();
+				targetSize = normalSize;
+			}
+
+			targetPos.y = Mathf.Max(targetPos.y, minHeight);
+
 			Vector3 pos = Vector2.SmoothDamp(
 				transform.position,
-				focus.position,
+				targetPos,
 				ref _currentVelocity,
 				smoothTime,
 				maxSpeed,
-				Time.deltaTime);
+				Time.deltaTime
+			);
 
 			pos.z = zCoordinate;
 
 			transform.position = pos;
+
+			thisCamera.orthographicSize = Mathf.SmoothDamp(
+				thisCamera.orthographicSize,
+				targetSize,
+				ref _sizeVelocity,
+				smoothTime,
+				maxSpeed,
+				Time.deltaTime
+			);
 		}
 
 		#endregion
