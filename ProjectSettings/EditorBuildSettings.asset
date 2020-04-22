@@ -15,6 +15,18 @@ EditorBuildSettings:
     path: Assets/_General/Scenes/WinScreen.unity
     guid: ae8b364786e48e246a036d58dfbb8993
   - enabled: 1
-    path: Assets/_General/Scenes/FireDetectionTesting.unity
-    guid: 65bc92f57f61e8a4e97adcce86969485
+    path: Assets/_General/Scenes/LEVEL1.unity
+    guid: 9c24f11948ce6484eba644f8b8d566d5
+  - enabled: 1
+    path: Assets/_General/Scenes/LEVEL2.unity
+    guid: 05cb42a7b6bec7446ac831cccba2fd9e
+  - enabled: 1
+    path: Assets/_General/Scenes/LEVEL3.unity
+    guid: ad644808f264b0345bd3ad165b9be00a
+  - enabled: 1
+    path: Assets/_General/Scenes/WinScreenFinal.unity
+    guid: d4b8f794f6b8e7044951f4ddc01c91d8
+  - enabled: 1
+    path: Assets/_General/Scenes/Credits.unity
+    guid: ae2185cce6df9df408a476f970bd6309
   m_configObjects: {}

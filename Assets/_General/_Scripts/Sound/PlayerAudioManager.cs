@@ -142,10 +142,10 @@ namespace _General._Scripts.Sound
 		private void UpdateCurrentSong()
 		{
 			Building.Building building = Building.Building.Singleton;
-			float firePercent = 0.0f * building.netFireLevel / building.numRooms;
+			float firePercent = 1.0f * building.netFireLevel / building.numRooms;
 
-			if (firePercent > 0.6f) { currentSongNdx = 2; }
-			else if (firePercent > 0.2f) { currentSongNdx = 1;}
+			if (firePercent > 0.0f) { currentSongNdx = 2; }
+			else if (firePercent > 0.35f) { currentSongNdx = 1;}
 			else currentSongNdx = 0;
 		}
 
